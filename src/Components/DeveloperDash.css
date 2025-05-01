@@ -1,0 +1,87 @@
+.devdash-container {
+    width: 100%;
+    /* overflow: hidden; */
+    /* background-color: #538b5e; */
+    border-radius: 36px;
+    border: 1px solid rgb(131, 131, 131, 0.4);
+
+    .box-body {
+        display: flex;
+        flex-direction: column;
+        
+        .deployments {
+            width: 30%;
+            padding: 10px 20px;
+            display: flex;
+            align-self: end;
+            gap: 25px;
+
+            span {
+                display: flex;
+            }
+        }
+
+        .content {
+            width: 145vh;
+            margin: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-self: start;
+            gap: 20px;
+
+            .feature {
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 36px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(131, 131, 131, 0.4);
+                gap: 10px;
+
+                &:hover {
+                    background-color: rgba(25, 64, 64, 0.4);
+
+                }
+
+                .feature-title {
+                    display: flex;
+                    justify-content: space-between;
+                    cursor: pointer;
+                    
+                    .feature-name {
+                        font-weight: 600;
+                    }
+                    .feature-date {
+                        font-size: 12px;
+                        font-style: italic;
+                        color: #868585;
+                    }
+                }
+                .feature-description {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .readmore {
+                        color: rgb(214, 243, 218);
+                        cursor: pointer;
+                    }
+
+                    .btn-status {
+                        padding: 5px 10px;
+                        border-radius: 24px;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        background-color: rgb(122, 3, 3);
+                        font-weight: 500;
+
+                        &:hover {
+                            background-color: rgb(148, 2, 2);
+                        }
+                    }
+                }
+            }
+        }      
+    }
+}
