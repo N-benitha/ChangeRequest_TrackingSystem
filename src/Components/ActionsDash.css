@@ -1,0 +1,100 @@
+.action-container {
+    /* background-color: #675151; */
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+
+    .btn-add-request {
+        width: 15%;
+        padding: 10px 0;
+        border-radius: 36px;
+        border: 1px solid rgb(131, 131, 131, 0.4);
+        background-color: #133131;
+        outline: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(25, 64, 64, 0.4);
+        }
+    }
+
+    form {
+        /* background-color: #675151; */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+
+        h2 {
+            align-self: start;
+        }
+
+        .form-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-self: start;
+
+            .form-content-item {
+                /* background-color: #311e1e; */
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+
+                p {
+                    display: flex;
+                }
+
+                .title {
+                    width: 40%;
+                    padding: 10px 15px;
+                    border-radius: 9px;
+                    border: none;
+                    outline: none;
+                }
+
+                .change-type {
+                    width: 25%;
+                    padding: 10px 15px;
+                    border-radius: 9px;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                }
+
+                .description {
+                    padding: 15px 20px;
+                    border-radius: 9px;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                }
+
+                .date {
+                    width: 20%;
+                    padding: 10px 15px;
+                    border-radius: 9px;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                }
+                
+            }
+
+            .form-buttons {
+                display: flex;
+                align-self: end;
+                gap: 20px;
+
+                .btn-1 {
+                    padding: 10px 15px;
+                    border-radius: 9px;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    background-color: #000;
+                }
+            }
+        }
+    }
+}

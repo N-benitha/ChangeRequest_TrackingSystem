@@ -1,87 +1,73 @@
 .devdash-container {
     width: 100%;
-    /* overflow: hidden; */
-    /* background-color: #538b5e; */
-    border-radius: 36px;
-    border: 1px solid rgb(131, 131, 131, 0.4);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* background-color: #916262; */
+    overflow-y: scroll;
 
-    .box-body {
+    .dash-box2 {
+        width: 100%;
+        padding: 10px;
         display: flex;
         flex-direction: column;
-        
-        .deployments {
-            width: 30%;
-            padding: 10px 20px;
-            display: flex;
-            align-self: end;
-            gap: 25px;
+        /* justify-content: space-between; */
+        gap: 50px;
+        /* background-color: #916262; */
 
-            span {
-                display: flex;
+        .box-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            /* background-color: #916262; */
+
+            p {
+                font-size: 1.1rem;
+                cursor: pointer;
+            }
+            .btn-1 {
+                padding: 20px;
+                border-radius: 36px;
+                border: none;
+                outline: none;
+                background-color: #242424;
+                cursor: pointer;
             }
         }
 
-        .content {
-            width: 145vh;
-            margin: 20px;
-            padding: 20px;
+        .box-titles {
             display: flex;
             flex-direction: column;
-            align-self: start;
-            gap: 20px;
+            /* background-color: #567856; */
 
-            .feature {
+            .titles {
                 display: flex;
-                flex-direction: column;
-                padding: 20px;
-                border-radius: 36px;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(131, 131, 131, 0.4);
-                gap: 10px;
+                /* flex-direction: row; */
 
-                &:hover {
-                    background-color: rgba(25, 64, 64, 0.4);
-
-                }
-
-                .feature-title {
-                    display: flex;
-                    justify-content: space-between;
-                    cursor: pointer;
-                    
-                    .feature-name {
-                        font-weight: 600;
-                    }
-                    .feature-date {
-                        font-size: 12px;
-                        font-style: italic;
-                        color: #868585;
-                    }
-                }
-                .feature-description {
-                    display: flex;
-                    justify-content: space-between;
-
-                    .readmore {
-                        color: rgb(214, 243, 218);
-                        cursor: pointer;
-                    }
-
-                    .btn-status {
-                        padding: 5px 10px;
-                        border-radius: 24px;
-                        border: none;
-                        outline: none;
-                        cursor: pointer;
-                        background-color: rgb(122, 3, 3);
-                        font-weight: 500;
-
-                        &:hover {
-                            background-color: rgb(148, 2, 2);
-                        }
-                    }
+                a {
+                    text-decoration: none;
+                    padding: 5px 20px;
+                    color: inherit;
                 }
             }
-        }      
+            hr {
+                width: 100%;
+                background-color: #fff;
+                height: 1px;
+                border: none;
+            }
+        }
+        
+    }
+
+    .devdash-subcontainer {
+        /* width: 100%; */
+        /* overflow: hidden; */
+        /* background-color: #538b5e; */
+        margin: 0 20px;
+        border-radius: 36px;
+        border: 1px solid rgb(131, 131, 131, 0.4);
     }
 }
