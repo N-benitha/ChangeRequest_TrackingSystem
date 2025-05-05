@@ -11,7 +11,16 @@ import LogIn from './Components/LogIn'
 import Dashboards from './Components/Dashboards'
 import ChangeRequestHistory from './Components/ChangeRequestHistory'
 import ActionsDash from './Components/ActionsDash'
-import Projects from './Components/Projects'
+import UserProjects from './Components/UserProjects'
+import Pending from './Components/Pending'
+import Approved from './Components/Approved'
+import RolledBack from './Components/RolledBack'
+import UserInformation from './Components/UserInformation'
+import Users from './Components/Users'
+import AssignProjects from './Components/AssignProjects'
+import ProjectsDash from './Components/ProjectsDash'
+import AllProjects from './Components/AllProjects'
+import ProjectInfo from './Components/ProjectInfo'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -24,20 +33,30 @@ function App() {
       <Routes>
         <Route path='/' element={<LogIn />} />
         <Route path='/signup' element={<SignUp />} />
-        {/* <Route path='/dashboards' element={<Dashboards />}/> */}
-        {/* <Route path='/developer' element={<DeveloperDash />}/> */}
-        {/* <Route path='/admin' element={<AdminDash />}/> */}
-        {/* <Route path='/approver' element={<ApproverDash />}/> */}
 
         <Route path='/dashboards' element={<Dashboards/>} >
           <Route path='developer' element={<DeveloperDash />}>
-            <Route index element={<Projects />} />
+            <Route index element={<UserProjects />} />
             <Route path='change-requests-history' element={<ChangeRequestHistory />}/>
             <Route path='actions' element={<ActionsDash />}/>
           </Route>
 
-          <Route path='admin' element={<AdminDash />}/>
-          <Route path='approver' element={<ApproverDash />}/>
+          <Route path='admin' element={<AdminDash />}>
+            <Route index element={<Users />} />
+            <Route path='user-info' element={<UserInformation />}/>
+            <Route path='assign-projects' element={<AssignProjects />}/>
+          </Route>
+          <Route path='admin/all-projects' element={<ProjectsDash />}>
+            <Route index element={<AllProjects />} />
+            <Route path='project-info' element={<ProjectInfo />}/>
+          </Route>
+
+          <Route path='approver' element={<ApproverDash />}>
+          <Route index element={<Pending />} />
+            <Route path='approved' element={<Approved />}/>
+            <Route path='rolled-back' element={<RolledBack />}/>
+          </Route>
+
         </Route>
         
       </Routes>

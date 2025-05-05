@@ -1,0 +1,89 @@
+.box-body {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    /* background-color: slategray; */
+
+    .add-user {
+        display: flex;
+        justify-content: space-between;
+
+        .btn-add-user {
+            width: 15%;
+            padding: 10px 0;
+            border-radius: 36px;
+            border: 1px solid rgb(131, 131, 131, 0.4);
+            background-color: #133131;
+            outline: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(25, 64, 64, 0.4);
+            }
+        }
+
+        .user-count {
+            cursor: pointer;
+        }
+    }
+
+    .content {
+        margin: auto;
+        padding-left: 0;
+        /* background-color: #201212; */
+
+        .user {
+            width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            align-self: start;
+            /* background-color: #895353; */
+            border-radius: 36px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(131, 131, 131, 0.4);
+
+            &:hover {
+                background-color: rgba(25, 64, 64, 0.4);
+
+            }
+            
+            .user-name {
+                display: flex;
+                font-weight: 600;
+            }
+            .user-type {
+                display: flex;
+                justify-content: space-between;
+                
+                .btns {
+                    display: flex;
+                    gap: 10px;
+
+                    .btn-type, .btn-remove {
+                        padding: 5px 10px;
+                        border-radius: 24px;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        font-weight: 500;
+                    }
+                    .btn-type {
+                        background-color: #FF5304;
+    
+                        &:hover {
+                            background-color: #ff54047d;
+                        }
+                    }
+                    .btn-remove {
+                        background-color: rgb(122, 3, 3);
+    
+                        &:hover {
+                            background-color: rgb(148, 2, 2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

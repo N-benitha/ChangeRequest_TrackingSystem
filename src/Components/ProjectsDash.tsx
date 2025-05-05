@@ -1,31 +1,30 @@
 import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
-import './AdminDash.css'
+import './ProjectsDash.css'
 
-const AdminDash = () => {
+const ProjectsDash = () => {
   return (
-    <div className='admindash-container'>
+    <div className='projectsdash-container'>
       <div className="dash-box2">
         <div className="box-head">
-          <p>Users / Carl Johnson</p>
+          <p>Projects / ChatBot</p>
           <button className='btn-1'>Dia</button>
         </div>
         
         <div className="box-titles">
           <div className="titles">
-              <Link to={'./'}>Users</Link>
-              <Link to={'./user-info'}>User Information</Link>
-              <Link to={'./assign-projects'}>Projects</Link>
+              <Link to={'./'}>Projects</Link>
+              <Link to={'./project-info'}>Project Information</Link>
           </div>
           <hr />
         </div>
 
       </div>
-      <div className="admindash-subcontainer">
+      <div className="projectsdash-subcontainer">
         <Outlet/>
       </div>
     </div>
   )
 }
 
-export default AdminDash
+export default ProjectsDash

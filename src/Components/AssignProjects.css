@@ -1,0 +1,128 @@
+.assign-container {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+    /* background-color: #563535; */
+
+    .username {
+        display: flex;
+        font-weight: 600;
+        font-size: 24px;
+    }
+    .user-projects {
+        height: 50vh;
+        width: 60%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-self: start;
+        /* background-color: #563535; */
+        border-radius: 36px;
+        border: 1px solid rgb(131, 131, 131, 0.4);
+
+        h3 {
+            align-self: start;
+            padding-left: 10px;
+        }
+
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #133131;
+            
+            .project-items {
+                /* background-color: #1e1313; */
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 5px 10px;
+                border-top: 1px solid rgb(131, 131, 131, 0.4);
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(25, 64, 64, 0.4);
+                }
+
+                .item1 {
+                    /* background-color: #1e1313; */
+                    display: flex;
+                    flex-direction: column;
+
+                    .title {
+                        align-self: start;
+                    }
+                    .date {
+                        align-self: start;
+                    }
+                }
+
+                .btn-deployed, .btn-pending, .btn-rolledback {
+                    height: 30px;
+                    align-self: center;
+                    padding: 10px;
+                    border-radius: 9px;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                }
+                .btn-deployed {
+                    background-color: #0D8205;
+
+                    &:hover {
+                        background-color: #0b6704;
+                    }
+                }
+                .btn-pending {
+                    background-color: #9b9602;
+
+                    &:hover {
+                        background-color: #797501;
+                    }
+                }
+                .btn-rolledback {
+                    background-color: #AD0707;
+
+                    &:hover {
+                        background-color: #8d0505;
+                    }
+                }
+            }
+        }
+    }
+
+    .project-item {
+        display: flex;
+        /* background-color: #504646; */
+        gap: 20px;
+
+        .project-text {
+            height: 40px;
+            width: 30%;
+            align-self: center;
+            border: none;
+            outline: none;
+            padding: 0 10px;
+            border-radius: 12px;
+            background-color: #b1b0b0;
+            color: #000;
+        }
+    }
+
+    .btn-save {
+        align-self: end;
+        width: 15%;
+        padding: 10px 0;
+        border-radius: 12px;
+        border: none;
+        background-color: #242424;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #383838;
+        }
+    }
+}

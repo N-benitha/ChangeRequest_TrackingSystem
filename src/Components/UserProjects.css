@@ -1,11 +1,11 @@
 .content {
-    width: 145vh;
+    width: 140vh;
     margin: 20px;
-    padding: 20px;
+    /* padding: 10px; */
     display: flex;
     flex-direction: column;
     align-self: start;
-    gap: 20px;
+    /* background-color: rgb(2, 2, 57); */
 
     .project {
         display: flex;
@@ -14,27 +14,18 @@
         border-radius: 36px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(131, 131, 131, 0.4);
-        gap: 10px;
     
         &:hover {
             background-color: rgba(25, 64, 64, 0.4);
     
         }
-    
-        .project-title {
-            display: flex;
-            justify-content: space-between;
+
+        .project-name {
+            font-weight: 600;
             cursor: pointer;
-            
-            .project-name {
-                font-weight: 600;
-            }
-            .project-date {
-                font-size: 12px;
-                font-style: italic;
-                color: #868585;
-            }
+            align-self: start;
         }
+    
         .project-description {
             display: flex;
             justify-content: space-between;
