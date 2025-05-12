@@ -1,13 +1,44 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import './AdminDash.css'
+import axios from 'axios'
 
 const AdminDash = () => {
+  interface User {
+    username: string;
+    // Add other properties as needed
+  }
+
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userId = new URLSearchParams(window.location.search).get('id');
+
+    if (!userId) {
+      setError("user doesn't exist");
+      return;
+    }
+
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/auth/${userId}`);
+        setUser(response.data)
+      } catch (error) {
+        setError("Failed to fetch user");
+        console.log(error);
+      }
+    };
+
+    fetchUser();
+  }, [navigate]);
+
   return (
     <div className='admindash-container'>
       <div className="dash-box2">
         <div className="box-head">
-          <p>Users / Carl Johnson</p>
+        <p>Users {user ? <span>/ {user.username}</span> : ''}</p>
           <button className='btn-1'>Dia</button>
         </div>
         

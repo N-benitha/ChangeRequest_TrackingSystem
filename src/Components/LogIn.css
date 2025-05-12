@@ -42,5 +42,16 @@
                 cursor: pointer;
             }
         }
+
+        p {
+            .error {
+                align-self: center;
+                background-color: rgba(244, 180, 180, 0.728);
+                border: #f00;
+                color: #000;
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
     }
 }

@@ -34,7 +34,7 @@
 
         .user {
             width: 95%;
-            padding: 10px 20px;
+            padding: 15px 25px;
             display: flex;
             flex-direction: column;
             align-self: start;
@@ -51,6 +51,7 @@
             .user-name {
                 display: flex;
                 font-weight: 600;
+                cursor: pointer;
             }
             .user-type {
                 display: flex;
