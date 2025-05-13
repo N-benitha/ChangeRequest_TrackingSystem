@@ -28,7 +28,6 @@ const AddUser = () => {
             setPassword('');
             setUserType('');
             setUserStatus('');
-            setError('');
             
         } catch (error) {
             setError(error)

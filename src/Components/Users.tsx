@@ -16,7 +16,6 @@ const Users = () => {
     }
 
     const [users, setUsers] = useState<User[]>([]);
-    const [id, setId] = useState('');
     const[loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -58,7 +57,7 @@ const Users = () => {
         try {
             navigate('add-user');
         } catch (error) {
-            console.error("Unable to add user", error);
+            console.error("Unable to navigate user", error);
             
         }
     }

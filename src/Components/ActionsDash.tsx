@@ -16,11 +16,12 @@ const ActionsDash = () => {
             </div>
 
             <div className="form-content-item">
-              <p>Change Type</p>
+              <p>Request Type</p>
               <select name='change-type' id='change-type' className='change-type'>
                 <option value="1">New Feature</option>
                 <option value="2">Edited Feature</option>
-                <option value="3">Updates</option>
+                <option value="3">Bug Fix</option>
+                <option value="4">Updates</option>
               </select>
             </div>
 

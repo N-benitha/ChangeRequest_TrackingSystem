@@ -1,13 +1,44 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import './ProjectsDash.css'
+import axios from 'axios';
 
 const ProjectsDash = () => {
+  interface Project {
+    id: string;
+    title: string;
+    description: string;
+  }
+  const [project, setProject] = useState<Project | null>(null);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const projectId = new URLSearchParams(window.location.search).get('id');
+
+    if (!projectId) {
+      setError("Project doesn't exist");
+      return;
+    }
+    const fetchProject = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/project/all-projects/${projectId}`);
+        setProject(response.data)
+      } catch (error) {
+        setError("Failed to fetch user");
+        console.log(error);
+      }
+    };
+
+    fetchProject();
+  }, [navigate]);
+  
+  
   return (
     <div className='projectsdash-container'>
       <div className="dash-box2">
         <div className="box-head">
-          <p>Projects / ChatBot</p>
+          <p>Projects {project ? <span>/ {project.title}</span> : ''}</p>
           <button className='btn-1'>Dia</button>
         </div>
         

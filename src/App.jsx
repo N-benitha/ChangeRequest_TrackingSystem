@@ -22,6 +22,7 @@ import ProjectsDash from './Components/ProjectsDash'
 import AllProjects from './Components/AllProjects'
 import ProjectInfo from './Components/ProjectInfo'
 import AddUser from './Components/AddUser'
+import AddProject from './Components/AddProject'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -50,6 +51,7 @@ function App() {
           </Route>
           <Route path='admin/all-projects' element={<ProjectsDash />}>
             <Route index element={<AllProjects />} />
+            <Route path='add-project' element={<AddProject />}/>
             <Route path='project-info' element={<ProjectInfo />}/>
           </Route>
 
