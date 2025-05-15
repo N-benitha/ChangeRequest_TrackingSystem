@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './UserInformation.css'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UserInformation = () => {
   interface User {
@@ -13,10 +14,11 @@ const UserInformation = () => {
 }
 
   const [user, setUser] = useState<User | null>();
-  const [name, setName] = useState('');
+  const [userName, setUserName] = useState('');
   const [error, setError] = useState('');
   const [userType, setUserType] = useState('');
   const [userStatus, setUserStatus] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userId = new URLSearchParams(window.location.search).get('id');
@@ -30,11 +32,12 @@ const UserInformation = () => {
       try {
         const response = await axios.get(`http://localhost:3000/auth/${userId}`);
         setUser(response.data);
-        setUserType(response.data.user_type || '');
-        setUserStatus(response.data.status || '');
+        setUserName(response.data.username)
+        setUserType(response.data.user_type);
+        setUserStatus(response.data.status);
       } catch (error) {
-        setError("Failed to fetch user");
-        console.log(error);
+        setError(error);
+        console.log("Failed to fetch user", error);
       }
     };
 
@@ -48,11 +51,12 @@ const UserInformation = () => {
       await axios.patch(
         `http://localhost:3000/auth/${user?.id}`,
         {       
-          username: name,
+          username: userName,
           user_type: userType,
           status: userStatus
         }
       );
+      navigate('../');
       alert('Changes saved!');
       console.log("User Updated");
       
@@ -69,8 +73,8 @@ const UserInformation = () => {
         <h2>User Information</h2>
         <div className="form-content">
           <div className="form-content-item">
-            <p>Usename: <strong style={{color: 'white', paddingLeft: '10px'}}> {user?.username}</strong></p>
-            <input type="text" className='user-text' placeholder='New Name' value={name} onChange={(e) => setName(e.target.value)}/>
+            <p>Usename: <strong style={{color: 'white', paddingLeft: '10px'}}> {userName}</strong></p>
+            <input type="text" className='user-text' placeholder='New Name' onChange={(e) => setUserName(e.target.value)}/>
           </div>
 
           <div className="form-content-item">
@@ -86,7 +90,7 @@ const UserInformation = () => {
           <div className="form-content-item">
             <p>Status</p>
             <select name='change-status'className='change-status' value={userStatus} onChange={(e) => setUserStatus(e.target.value)}>
-              <option value="" disabled hidden>Select status</option>
+              <option value="pending">Pending</option>
               <option value="active">Active</option>
               <option value="idle">Idle</option>
             </select>

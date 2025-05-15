@@ -10,6 +10,7 @@ const ProjectsDash = () => {
     description: string;
   }
   const [project, setProject] = useState<Project | null>(null);
+  const [projectTitle, setProjectTitle] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -22,8 +23,9 @@ const ProjectsDash = () => {
     }
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/project/all-projects/${projectId}`);
-        setProject(response.data)
+        const response = await axios.get(`http://localhost:3000/project/${projectId}`);
+        setProject(response.data);
+        setProjectTitle(response.data.title)
       } catch (error) {
         setError("Failed to fetch user");
         console.log(error);
@@ -38,7 +40,7 @@ const ProjectsDash = () => {
     <div className='projectsdash-container'>
       <div className="dash-box2">
         <div className="box-head">
-          <p>Projects {project ? <span>/ {project.title}</span> : ''}</p>
+          <p>Projects {project ? <span>/ {projectTitle}</span> : ''}</p>
           <button className='btn-1'>Dia</button>
         </div>
         

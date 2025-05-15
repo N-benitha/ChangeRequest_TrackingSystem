@@ -9,7 +9,10 @@ const AllProjects = () => {
     title: string,
     description: string
   }
-  interface handleProjectTitle {
+  interface handleProjectTitle{
+    (id: string): void
+  }
+  interface handleUpdate {
     (id: string): void
   }
 
@@ -56,7 +59,11 @@ const AllProjects = () => {
         
     }
     const handleProjectTitle: handleProjectTitle = (id) => {
-        navigate(`./user-info/?id=${id}`)
+      navigate(`./project-info/?id=${id}`);
+    }
+
+    const handleUpdate: handleUpdate = (id) => {
+        navigate(`./project-update/?id=${id}`);
     }
 
   return (
@@ -72,7 +79,10 @@ const AllProjects = () => {
             <div className="project-name" onClick={() => handleProjectTitle(project.id)}>{project.title}</div>
             <div className="project-type">
               <span className='info'>{project.description}</span>
-              <button className='btn-remove' onClick={() => handleRemove(project.id)}>Remove</button>
+              <div className="btns">
+                <button className='btn-update' onClick={() => handleUpdate(project.id)}>Update</button>
+                <button className='btn-remove' onClick={() => handleRemove(project.id)}>Remove</button>
+              </div>
             </div>
             </div>
           ))}
