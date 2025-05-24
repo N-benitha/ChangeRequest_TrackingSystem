@@ -69,11 +69,30 @@
                     border: none;
                     outline: none;
                     cursor: pointer;
-                    background-color: rgb(122, 3, 3);
                     font-weight: 500;
 
-                    &:hover {
-                        background-color: rgb(148, 2, 2);
+                    &.approved {
+                        background-color: #0D8205;
+
+                        &:hover {
+                            background-color: #0b6704;
+                        }
+                    }
+
+                    &.pending {
+                        background-color: #9b9602;
+
+                        &:hover {
+                            background-color: #797501;
+                        }
+                    }
+
+                    .rolledback {
+                        background-color: #AD0707;
+
+                        &:hover {
+                            background-color: #8d0505;
+                        }
                     }
                 }
             }

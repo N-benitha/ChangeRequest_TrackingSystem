@@ -15,9 +15,9 @@ const Dashboards = () => {
             </div>
             <h2>DEVELOPER</h2>
             <div className="dash-components">
-                <div className="comp1">Users</div>
+                <div className="comp1"><Link to={'./admin'} >Users</Link></div>
                 <div className="comp1"><Link to={'./admin/all-projects'} >Projects</Link></div>
-                <div className="comp1">Reports</div>
+                <div className="comp1"><Link to={'./reports'} >Reports</Link></div>
             </div>
         </div>
         <Outlet />

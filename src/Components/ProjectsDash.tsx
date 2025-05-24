@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
 import './ProjectsDash.css'
 import axios from 'axios';
 
@@ -14,8 +14,10 @@ const ProjectsDash = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const {id: projectId} = useParams();
+
   useEffect(() => {
-    const projectId = new URLSearchParams(window.location.search).get('id');
+    // const projectId = new URLSearchParams(window.location.search).get('id');
 
     if (!projectId) {
       setError("Project doesn't exist");

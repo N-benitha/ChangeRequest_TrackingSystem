@@ -5,8 +5,8 @@ import axios from 'axios'
 
 const AdminDash = () => {
   interface User {
+    id: string;
     username: string;
-    // Add other properties as needed
   }
 
   const [user, setUser] = useState<User | null>(null);
@@ -46,7 +46,11 @@ const AdminDash = () => {
           <div className="titles">
               <Link to={'./'}>Users</Link>
               <Link to={'./user-info'}>User Information</Link>
-              <Link to={'./assign-projects'}>Projects</Link>
+              {user ? (
+                <Link to={`./assign-projects/${user.id}`}>Projects</Link>
+              ) : (
+                <Link to={`./assign-projects`}>Projects</Link>
+              )}
           </div>
           <hr />
         </div>

@@ -59,7 +59,7 @@ const AllProjects = () => {
         
     }
     const handleProjectTitle: handleProjectTitle = (id) => {
-      navigate(`./project-info/?id=${id}`);
+      navigate(`./project-info/${id}`);
     }
 
     const handleUpdate: handleUpdate = (id) => {

@@ -25,6 +25,7 @@ import AddUser from './Components/AddUser'
 import AddProject from './Components/AddProject'
 // import ProjectInformation from './Components/ProjectInformation'
 import ProjectUpdate from './Components/ProjectUpdate'
+import Reports from './Components/Reports'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -49,13 +50,15 @@ function App() {
             <Route index element={<Users />} />
             <Route path='user-info' element={<UserInformation />}/>
             <Route path='add-user' element={<AddUser />}/>
-            <Route path='assign-projects' element={<AssignProjects />}/>
+            <Route path='assign-projects/:id' element={<AssignProjects />}/>
           </Route>
+          <Route path='reports' element={<Reports/>}/>
           <Route path='admin/all-projects' element={<ProjectsDash />}>
             <Route index element={<AllProjects />} />
             <Route path='project-update' element={<ProjectUpdate/>}/>
             <Route path='add-project' element={<AddProject />}/>
             <Route path='project-info' element={<ProjectInfo />}/>
+            <Route path='project-info/:id' element={<ProjectInfo />}/>
           </Route>
 
           <Route path='approver' element={<ApproverDash />}>
