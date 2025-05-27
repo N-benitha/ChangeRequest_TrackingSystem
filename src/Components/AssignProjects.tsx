@@ -56,7 +56,7 @@ interface ChangeRequest {
     const fetchData = async () => {
       try {
         const [userRes, userProjectRes, allProjectsRes] = await Promise.all([
-          axios.get(`http://localhost:3000/auth/${userId}`),
+          axios.get(`http://localhost:3000/users/${userId}`),
           // axios.get(`http://localhost:3000/user-project/by-user/${userId}`),
           axios.get(`http://localhost:3000/change-request/query?userId=${userId}`),
           axios.get(`http://localhost:3000/project/all-projects`)

@@ -1,3 +1,9 @@
+.project-count {
+    margin: 20px;
+    padding: 10px;
+    /* display: flex; */
+    float: right;
+}
 .content {
     width: 140vh;
     margin: 20px;

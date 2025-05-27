@@ -1,22 +1,74 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './DeveloperDash.css'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios';
 
 const DeveloperDash = () => {
+  interface User {
+      id: string;
+      username: string;
+      email: string,
+      password: string,
+      user_type?: string;
+      status?: string;
+  }
+  
+  interface Project {
+    id: string;
+    title: string;
+    description: string;
+  }
+  
+  interface ChangeRequest {
+    id: string;
+    description: string;
+    project: Project;
+    user: User;
+    request_type: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+  }
+  
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const { projectId } = useParams();
+
+
+  useEffect(() => {
+    if (!projectId) return;
+
+    const fetchProject = async () => {
+      try {      
+        const response = await axios.get(`http://localhost:3000/project/${projectId}`);
+        setProject(response.data);
+      } catch (error) {
+      setError("Failed to fetch project data");
+      console.error("Error fetching:", error);
+      }
+    };
+    fetchProject();
+
+  }, [navigate, projectId]);
+
+  // if (loading) return <span>Loading...</span>;
 
   return (
     <div className='devdash-container'>
       <div className="dash-box2">
         <div className="box-head">
-          <p>Projects / My_first_project</p>
+          <p>Projects {project ? <span>/ {project.title}</span>: ''}</p>
           <button className='btn-1'>Dia</button>
         </div>
         
         <div className="box-titles">
           <div className="titles">
               <Link to={'./'}>Projects</Link>
-              <Link to={'./change-requests-history'}>Change Request History</Link>
-              <Link to={'./actions'}>Actions</Link>
+              <Link to={'./change-requests-history/:id'}>Change Request History</Link>
+              <Link to={'./actions/:id'}>Actions</Link>
           </div>
           <hr />
         </div>

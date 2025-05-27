@@ -22,7 +22,7 @@ const Users = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/auth');
+                const response = await axios.get('http://localhost:3000/users');
                 setUsers(response.data.users);
 
             } catch (error) {
@@ -43,7 +43,7 @@ const Users = () => {
 
     const handleRemove = async (id: string) => {
         try {
-            await axios.delete(`http://localhost:3000/auth/${id}`);
+            await axios.delete(`http://localhost:3000/users/${id}`);
 
             setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
             

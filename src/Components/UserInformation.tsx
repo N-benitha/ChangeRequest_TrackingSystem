@@ -30,7 +30,7 @@ const UserInformation = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/auth/${userId}`);
+        const response = await axios.get(`http://localhost:3000/users/${userId}`);
         setUser(response.data);
         setUserName(response.data.username)
         setUserType(response.data.user_type);
@@ -49,7 +49,7 @@ const UserInformation = () => {
 
     try {
       await axios.patch(
-        `http://localhost:3000/auth/${user?.id}`,
+        `http://localhost:3000/users/${user?.id}`,
         {       
           username: userName,
           user_type: userType,

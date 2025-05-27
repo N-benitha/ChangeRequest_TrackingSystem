@@ -23,7 +23,7 @@ const AdminDash = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/auth/${userId}`);
+        const response = await axios.get(`http://localhost:3000/users/${userId}`);
         setUser(response.data)
       } catch (error) {
         setError("Failed to fetch user");

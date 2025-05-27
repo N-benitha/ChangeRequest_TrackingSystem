@@ -42,8 +42,8 @@ function App() {
         <Route path='/dashboards' element={<Dashboards/>} >
           <Route path='developer' element={<DeveloperDash />}>
             <Route index element={<UserProjects />} />
-            <Route path='change-requests-history' element={<ChangeRequestHistory />}/>
-            <Route path='actions' element={<ActionsDash />}/>
+            <Route path='change-requests-history/:id' element={<ChangeRequestHistory />}/>
+            <Route path='actions/:id' element={<ActionsDash />}/>
           </Route>
 
           <Route path='admin' element={<AdminDash />}>

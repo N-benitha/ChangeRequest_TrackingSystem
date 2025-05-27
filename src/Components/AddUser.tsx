@@ -14,7 +14,7 @@ const AddUser = () => {
         e.preventDefault();
         try {
             await axios.post(
-            `http://localhost:3000/auth/create`,
+            `http://localhost:3000/users/create`,
             {
                 username: name,
                 email: email,
