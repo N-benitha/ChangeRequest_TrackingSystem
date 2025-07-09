@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '../api/axios';
 import React, { useState } from 'react'
 import './AddProject.css'
 
@@ -10,7 +11,7 @@ const AddProject = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(
+            await api.post(
             `http://localhost:3000/project/create`,
             {
                 title: title,

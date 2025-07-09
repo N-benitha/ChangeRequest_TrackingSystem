@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './AllProjects.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../api/axios';
 
 const AllProjects = () => {
   interface Project {
@@ -24,7 +25,7 @@ const AllProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/project/all-projects`);
+        const response = await api.get(`http://localhost:3000/project/all-projects`);
         setProjects(response.data.projects);
 
       } catch (error) {
@@ -46,7 +47,7 @@ const AllProjects = () => {
 
   const handleRemove = async (id: string) => {
         try {
-          await axios.delete(`http://localhost:3000/project/${id}`);
+          await api.delete(`http://localhost:3000/project/${id}`);
           console.log('Project deleted');
 
           setProjects((prevProjects) => prevProjects.filter((project) => project.id !== id));

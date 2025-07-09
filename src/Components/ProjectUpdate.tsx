@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './ProjectUpdate.css'
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../api/axios';
 
 const ProjectUpdate = () => {
     interface Project {
@@ -26,7 +26,7 @@ const ProjectUpdate = () => {
 
         const fetchProject = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/project/${projectId}`);
+                const response = await api.get(`http://localhost:3000/project/${projectId}`);
                 setProject(response.data);
                 setProjectTitle(response.data.title);
                 setProjectDescription(response.data.description);
@@ -42,7 +42,7 @@ const ProjectUpdate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(
+            await api.patch(
             `http://localhost:3000/project/${project?.id}`,
             {
                 title: projectTitle,

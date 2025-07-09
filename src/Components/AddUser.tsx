@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './AddUser.css'
 import axios from 'axios';
+import api from '../api/axios';
 
 const AddUser = () => {
     const [name, setName] = useState('');
@@ -13,7 +14,7 @@ const AddUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(
+            await api.post(
             `http://localhost:3000/users/create`,
             {
                 username: name,

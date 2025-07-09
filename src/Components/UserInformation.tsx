@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './UserInformation.css'
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../api/axios';
 
 const UserInformation = () => {
   interface User {
@@ -30,7 +30,7 @@ const UserInformation = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/users/${userId}`);
+        const response = await api.get(`http://localhost:3000/users/${userId}`);
         setUser(response.data);
         setUserName(response.data.username)
         setUserType(response.data.user_type);
@@ -48,7 +48,7 @@ const UserInformation = () => {
     e.preventDefault();
 
     try {
-      await axios.patch(
+      await api.patch(
         `http://localhost:3000/users/${user?.id}`,
         {       
           username: userName,

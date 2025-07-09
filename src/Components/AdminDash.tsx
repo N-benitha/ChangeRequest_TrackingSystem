@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import './AdminDash.css'
-import axios from 'axios'
+import api from '../api/axios'
 
 const AdminDash = () => {
   interface User {
@@ -11,6 +11,7 @@ const AdminDash = () => {
 
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const AdminDash = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/users/${userId}`);
+        const response = await api.get(`http://localhost:3000/users/${userId}`);
         setUser(response.data)
       } catch (error) {
         setError("Failed to fetch user");
@@ -34,12 +35,28 @@ const AdminDash = () => {
     fetchUser();
   }, [navigate]);
 
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await api.post('/auth/logout');
+      navigate('/'); // Redirect to login page
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   return (
     <div className='admindash-container'>
       <div className="dash-box2">
         <div className="box-head">
-        <p>Users {user ? <span>/ {user.username}</span> : ''}</p>
-          <button className='btn-1'>Dia</button>
+          <p>Users {user ? <span>/ {user.username}</span> : ''}</p>
+          <div className='box-logout'>
+            <button className='btn-1' onClick={handleDropdownToggle}>Dia</button>
+            <span className={`logout-dropdown ${isDropdownOpen ? 'show': ''}`} onClick={handleLogout}>Log out</span>
+          </div>
         </div>
         
         <div className="box-titles">

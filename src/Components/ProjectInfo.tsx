@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
 import './ProjectInfo.css'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import api from '../api/axios'
 
 const ProjectInfo = () => {
   interface User {
@@ -49,7 +49,7 @@ const ProjectInfo = () => {
 
     const fetchProject= async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/change-request/query?projectId=${id}`);
+        const response = await api.get(`http://localhost:3000/change-request/query?projectId=${id}`);
         setChangeRequests(response.data || []);
         setProject(response.data.project || []);
         setLoading(false);

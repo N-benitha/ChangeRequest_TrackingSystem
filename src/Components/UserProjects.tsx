@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './UserProjects.css'
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import api from '../api/axios';
 
 const UserProjects = () => {
   interface User {
@@ -42,14 +42,14 @@ const UserProjects = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const userInfo = await axios.get(`http://localhost:3000/auth/me`);
+        const userInfo = await api.get(`http://localhost:3000/auth/me`);
         setUser(userInfo.data.user);
         const userId = user?.id;
         if (!userId) throw new Error("User ID not found");
 
         const [userProjectRes, changeRequestRes] = await Promise.all([
-          axios.get(`http://localhost:3000/user-project/by-user/${userId}`),
-          axios.get(`http://localhost:3000/change-request/query?userId=${userId}`)
+          api.get(`http://localhost:3000/user-project/by-user/${userId}`),
+          api.get(`http://localhost:3000/change-request/query?userId=${userId}`)
         ]);
         setUserProjects(userProjectRes.data);
         setChangeRequests(changeRequestRes.data);
@@ -71,7 +71,7 @@ const UserProjects = () => {
 
     const fetchChangeRequests = async () => {
       try {    
-        const response =  await axios.get(`http://localhost:3000/change-request/query?projectId=${projectId}`);
+        const response =  await api.get(`http://localhost:3000/change-request/query?projectId=${projectId}`);
         setChangeRequests(response.data);
         setLoading(false);
 

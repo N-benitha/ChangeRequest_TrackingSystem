@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
 import './ProjectsDash.css'
-import axios from 'axios';
+import api from '../api/axios';
 
 const ProjectsDash = () => {
   interface Project {
@@ -11,6 +11,7 @@ const ProjectsDash = () => {
   }
   const [project, setProject] = useState<Project | null>(null);
   const [projectTitle, setProjectTitle] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ const ProjectsDash = () => {
     }
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/project/${projectId}`);
+        const response = await api.get(`http://localhost:3000/project/${projectId}`);
         setProject(response.data);
         setProjectTitle(response.data.title)
       } catch (error) {
@@ -37,13 +38,28 @@ const ProjectsDash = () => {
     fetchProject();
   }, [navigate]);
   
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await api.post('/auth/logout');
+      navigate('/'); // Redirect to login page
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
   
   return (
     <div className='projectsdash-container'>
       <div className="dash-box2">
         <div className="box-head">
           <p>Projects {project ? <span>/ {projectTitle}</span> : ''}</p>
-          <button className='btn-1'>Dia</button>
+          <div className='box-logout'>
+            <button className='btn-1' onClick={handleDropdownToggle}>Dia</button>
+            <span className={`logout-dropdown ${isDropdownOpen ? 'show': ''}`} onClick={handleLogout}>Log out</span>
+          </div>
         </div>
         
         <div className="box-titles">

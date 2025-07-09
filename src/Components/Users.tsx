@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import './Users.css'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../api/axios'
 
 const Users = () => {
     interface User {
@@ -22,7 +22,9 @@ const Users = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/users');
+                const response = await api.get('http://localhost:3000/users', {
+                    withCredentials: true
+                });
                 setUsers(response.data.users);
 
             } catch (error) {
@@ -43,7 +45,9 @@ const Users = () => {
 
     const handleRemove = async (id: string) => {
         try {
-            await axios.delete(`http://localhost:3000/users/${id}`);
+            await api.delete(`http://localhost:3000/users/${id}`, {
+                    withCredentials: true
+                });
 
             setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
             

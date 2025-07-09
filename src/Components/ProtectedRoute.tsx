@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom';
+import api from '../api/axios';
 
 interface User {
   id: string;
@@ -23,7 +24,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/auth/me', {
+                const response = await api.get('http://localhost:3000/auth/me', {
                     withCredentials: true
                 });
                 if (response.data && response.data.user) {

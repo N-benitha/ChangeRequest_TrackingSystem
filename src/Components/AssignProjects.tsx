@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import './AssignProjects.css'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import api from '../api/axios'
 
 const AssignProjects = () => {
   interface User {
@@ -56,10 +56,10 @@ interface ChangeRequest {
     const fetchData = async () => {
       try {
         const [userRes, userProjectRes, allProjectsRes] = await Promise.all([
-          axios.get(`http://localhost:3000/users/${userId}`),
-          // axios.get(`http://localhost:3000/user-project/by-user/${userId}`),
-          axios.get(`http://localhost:3000/change-request/query?userId=${userId}`),
-          axios.get(`http://localhost:3000/project/all-projects`)
+          api.get(`http://localhost:3000/users/${userId}`),
+          // api.get(`http://localhost:3000/user-project/by-user/${userId}`),
+          api.get(`http://localhost:3000/change-request/query?userId=${userId}`),
+          api.get(`http://localhost:3000/project/all-projects`)
         ]);
         setUser(userRes.data);
 
@@ -92,7 +92,7 @@ interface ChangeRequest {
       return;
     }
     try {
-      await axios.post(`http://localhost:3000/user-project`, {
+      await api.post(`http://localhost:3000/user-project`, {
         userId: id,
         projectId: foundProject.id
       });
@@ -101,7 +101,7 @@ interface ChangeRequest {
       setNewProject('');
 
       //refresh user's projects
-      const res = await axios.get(`http://localhost:3000/user-project/by-user/${id}`);
+      const res = await api.get(`http://localhost:3000/user-project/by-user/${id}`);
       setUserProjects(res.data || []);
 
     } catch (error) {
@@ -122,7 +122,7 @@ interface ChangeRequest {
     }
 
     try {
-      await axios.delete(`http://localhost:3000/user-project`, {
+      await api.delete(`http://localhost:3000/user-project`, {
         data: {
           userId: id,
           projectId: foundProject.id
@@ -132,7 +132,7 @@ interface ChangeRequest {
       setOldProject('');
 
       // refresh user's projects
-      const res = await axios.get(`http://localhost:3000/user-project/by-user/${id}`);
+      const res = await api.get(`http://localhost:3000/user-project/by-user/${id}`);
       setUserProjects(res.data.project);
 
     } catch (error) {

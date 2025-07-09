@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './LogIn.css'
-import axios from 'axios';
+import api from '../api/axios';
 
 const LogIn = () => {
   interface User {
@@ -30,7 +30,7 @@ const LogIn = () => {
     setError('');
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         "http://localhost:3000/auth/login",
         {email, password},
         {withCredentials: true}
@@ -70,9 +70,9 @@ const LogIn = () => {
 
   const isAllowedPath = (path, userType) => {
     const rolePermissions = {
-      'ADMIN': ['/dashboard/admin'],
-      'DEVELOPER': ['/dashboard/developer'],
-      'APPROVER': ['/dashboard/approver'],
+      'ADMIN': ['/dashboards/admin'],
+      'DEVELOPER': ['/dashboards/developer'],
+      'APPROVER': ['/dashboards/approver'],
     };
 
     return rolePermissions[userType]?.some(allowedPath =>
@@ -83,16 +83,16 @@ const LogIn = () => {
   const getRoleBasedRedirect = (userType) => {
     switch (userType) {
       case 'ADMIN':
-        return '/dashboard/admin';
+        return '/dashboards/admin';
       
       case 'DEVELOPER':
-        return '/dashboard/developer';
+        return '/dashboards/developer';
 
       case 'APPROVER':
-        return '/dashboard/approver';
+        return '/dashboards/approver';
 
       default:
-        return '/dashboard';
+        return '/dashboards';
     }
   };
 

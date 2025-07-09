@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './DeveloperDash.css'
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
+import api from '../api/axios';
 
 const DeveloperDash = () => {
   interface User {
@@ -33,6 +34,7 @@ const DeveloperDash = () => {
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const { projectId } = useParams();
@@ -43,7 +45,7 @@ const DeveloperDash = () => {
 
     const fetchProject = async () => {
       try {      
-        const response = await axios.get(`http://localhost:3000/project/${projectId}`);
+        const response = await api.get(`http://localhost:3000/project/${projectId}`);
         setProject(response.data);
       } catch (error) {
       setError("Failed to fetch project data");
@@ -53,6 +55,19 @@ const DeveloperDash = () => {
     fetchProject();
 
   }, [navigate, projectId]);
+  
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await api.post('/auth/logout');
+      navigate('/'); // Redirect to login page
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   // if (loading) return <span>Loading...</span>;
 
@@ -61,7 +76,10 @@ const DeveloperDash = () => {
       <div className="dash-box2">
         <div className="box-head">
           <p>Projects {project ? <span>/ {project.title}</span>: ''}</p>
-          <button className='btn-1'>Dia</button>
+          <div className='box-logout'>
+            <button className='btn-1' onClick={handleDropdownToggle}>Dia</button>
+            <span className={`logout-dropdown ${isDropdownOpen ? 'show': ''}`} onClick={handleLogout}>Log out</span>
+          </div>
         </div>
         
         <div className="box-titles">
