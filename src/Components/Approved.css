@@ -1,21 +1,232 @@
+/* Approved.css - Merged with existing styles */
+
+/* Keep your existing structure but enhance it */
 .features {
     /* background-color: rgb(2, 65, 44); */
     padding: 25px 0;
+}
 
-    .feature-name {
-        /* background-color: rgb(2, 65, 44); */
-        display: flex;
-        align-self: start;
-        padding: 10px 20px;
-        border-bottom: 1px solid rgb(131, 131, 131, 0.4);
+/* Updated to work with new component structure */
+.box-body {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        &:last-child {
-            border-bottom: none;
-        }
+.approved-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(131, 131, 131, 0.4);
+}
 
-        &:hover {
-            cursor: pointer;
-            background-color: rgba(25, 64, 64, 0.4);
-        }
+.approved-header h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.request-count {
+    color: #fff;
+    font-size: 0.9rem;
+    background-color: rgba(25, 64, 64, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Remove gap to match your border style */
+}
+
+/* Enhanced feature container using your existing pattern */
+.feature {
+    background: #133131;
+    border-bottom: 1px solid rgb(131, 131, 131, 0.4);
+    transition: background-color 0.2s ease;
+}
+
+.feature:last-child {
+    border-bottom: none;
+}
+
+.feature:hover {
+    cursor: pointer;
+    background-color: rgba(25, 64, 64, 0.4);
+}
+
+.feature-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px; /* Match your existing padding */
+}
+
+.feature-title {
+    flex: 1;
+}
+
+/* Keep your existing feature-name style but enhance it */
+.feature-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.request-type {
+    font-weight: 600;
+    color: #b3b1b1;
+    text-transform: capitalize;
+}
+
+.project-name {
+    color: #fff;
+    font-weight: normal;
+}
+
+.feature-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.status-badge {
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    background-color: #28a745; /* Green for approved */
+}
+
+.feature-date {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.expand-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #fff;
+    transition: color 0.2s ease;
+}
+
+.expand-btn:hover {
+    color: #333;
+}
+
+/* Details section - only shown when expanded */
+.feature-details {
+    padding: 20px;
+    background-color: rgba(25, 64, 64, 0.05);
+    border-top: 1px solid rgb(131, 131, 131, 0.2);
+}
+
+.feature-description {
+    margin-bottom: 20px;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 12px;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.detail-row strong {
+    min-width: 150px;
+    color: #333;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.detail-row span {
+    color: #fff;
+    flex: 1;
+}
+
+.feature-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid rgb(131, 131, 131, 0.2);
+}
+
+.btn-deploy {
+    background-color: rgba(25, 64, 64, 0.8);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-deploy:hover:not(:disabled) {
+    background-color: rgba(25, 64, 64, 1);
+}
+
+.btn-deploy:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.no-requests {
+    text-align: center;
+    padding: 40px 20px;
+    color: #fff;
+}
+
+.no-requests p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.no-requests span {
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .approved-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .feature-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px 20px;
+    }
+    
+    .feature-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .detail-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .detail-row strong {
+        min-width: unset;
     }
 }

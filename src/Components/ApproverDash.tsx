@@ -56,7 +56,7 @@ const ApproverDash = () => {
     <div className='approverdash-container'>
       <div className="dash-box2">
         <div className="box-head">
-          <p>Projects / My_first_project</p>
+          <p>Change Requests</p>
           <div className='box-logout'>
             <button className='btn-1' onClick={handleDropdownToggle}>{user?.username}</button>
             <span className={`logout-dropdown ${isDropdownOpen ? 'show': ''}`} onClick={handleLogout}>Log out</span>
