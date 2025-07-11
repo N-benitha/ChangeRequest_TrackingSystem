@@ -30,7 +30,7 @@ const UserInformation = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await api.get(`http://localhost:3000/users/${userId}`);
+        const response = await api.get(`/users/${userId}`);
         setUser(response.data);
         setUserName(response.data.username)
         setUserType(response.data.user_type);
@@ -49,7 +49,7 @@ const UserInformation = () => {
 
     try {
       await api.patch(
-        `http://localhost:3000/users/${user?.id}`,
+        `/users/${user?.id}`,
         {       
           username: userName,
           user_type: userType,

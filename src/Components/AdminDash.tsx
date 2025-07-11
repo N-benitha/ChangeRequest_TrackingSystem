@@ -4,15 +4,44 @@ import './AdminDash.css'
 import api from '../api/axios'
 
 const AdminDash = () => {
-  interface User {
+  interface Users {
     id: string;
     username: string;
   }
+  interface User {
+    id: string;
+    username: string;
+    email: string,
+    password: string,
+    user_type?: string;
+    status?: string;
+  }
 
+  const [users, setUsers] = useState<Users | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userInfo = await api.get(`/auth/me`);
+        const currentUser = userInfo.data.user;
+        setUser(currentUser);
+        console.log('User info:', currentUser);
+        
+        if (!currentUser) throw new Error("User not found");
+      } catch (error) {
+        setError("Failed to fetch user info");
+        console.error("Error fetching:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const userId = new URLSearchParams(window.location.search).get('id');
@@ -22,17 +51,17 @@ const AdminDash = () => {
       return;
     }
 
-    const fetchUser = async () => {
+    const fetchUsers = async () => {
       try {
-        const response = await api.get(`http://localhost:3000/users/${userId}`);
-        setUser(response.data)
+        const response = await api.get(`/users/${userId}`);
+        setUsers(response.data)
       } catch (error) {
         setError("Failed to fetch user");
         console.log(error);
       }
     };
 
-    fetchUser();
+    fetchUsers();
   }, [navigate]);
 
   const handleDropdownToggle = () => {
@@ -52,9 +81,9 @@ const AdminDash = () => {
     <div className='admindash-container'>
       <div className="dash-box2">
         <div className="box-head">
-          <p>Users {user ? <span>/ {user.username}</span> : ''}</p>
+          <p>Users {users ? <span>/ {users.username}</span> : ''}</p>
           <div className='box-logout'>
-            <button className='btn-1' onClick={handleDropdownToggle}>Dia</button>
+            <button className='btn-1' onClick={handleDropdownToggle}>{user?.username}</button>
             <span className={`logout-dropdown ${isDropdownOpen ? 'show': ''}`} onClick={handleLogout}>Log out</span>
           </div>
         </div>
@@ -63,8 +92,8 @@ const AdminDash = () => {
           <div className="titles">
               <Link to={'./'}>Users</Link>
               <Link to={'./user-info'}>User Information</Link>
-              {user ? (
-                <Link to={`./assign-projects/${user.id}`}>Projects</Link>
+              {users ? (
+                <Link to={`./assign-projects/${users.id}`}>Projects</Link>
               ) : (
                 <Link to={`./assign-projects`}>Projects</Link>
               )}

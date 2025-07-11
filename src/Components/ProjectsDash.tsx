@@ -9,13 +9,43 @@ const ProjectsDash = () => {
     title: string;
     description: string;
   }
+  interface User {
+    id: string;
+    username: string;
+    email: string,
+    password: string,
+    user_type?: string;
+    status?: string;
+  }
+
   const [project, setProject] = useState<Project | null>(null);
   const [projectTitle, setProjectTitle] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const {id: projectId} = useParams();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userInfo = await api.get(`/auth/me`);
+        const currentUser = userInfo.data.user;
+        setUser(currentUser);
+        console.log('User info:', currentUser);
+        
+        if (!currentUser) throw new Error("User not found");
+      } catch (error) {
+        setError("Failed to fetch user info");
+        console.error("Error fetching:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     // const projectId = new URLSearchParams(window.location.search).get('id');
@@ -26,7 +56,7 @@ const ProjectsDash = () => {
     }
     const fetchProject = async () => {
       try {
-        const response = await api.get(`http://localhost:3000/project/${projectId}`);
+        const response = await api.get(`/project/${projectId}`);
         setProject(response.data);
         setProjectTitle(response.data.title)
       } catch (error) {
@@ -57,7 +87,7 @@ const ProjectsDash = () => {
         <div className="box-head">
           <p>Projects {project ? <span>/ {projectTitle}</span> : ''}</p>
           <div className='box-logout'>
-            <button className='btn-1' onClick={handleDropdownToggle}>Dia</button>
+            <button className='btn-1' onClick={handleDropdownToggle}>{user?.username}</button>
             <span className={`logout-dropdown ${isDropdownOpen ? 'show': ''}`} onClick={handleLogout}>Log out</span>
           </div>
         </div>

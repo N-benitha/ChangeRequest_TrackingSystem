@@ -22,9 +22,7 @@ const Users = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await api.get('http://localhost:3000/users', {
-                    withCredentials: true
-                });
+                const response = await api.get('/users');
                 setUsers(response.data.users);
 
             } catch (error) {
@@ -42,30 +40,22 @@ const Users = () => {
     const handleUsername: HandleUsername = (id) => {
         navigate(`./user-info/?id=${id}`)
     }
-
     const handleRemove = async (id: string) => {
         try {
-            await api.delete(`http://localhost:3000/users/${id}`, {
-                    withCredentials: true
-                });
-
+            await api.delete(`/users/${id}`);
             setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
             
         } catch (error) {
-            console.error("Failed to delete user", error);
-            
+            console.error("Failed to delete user", error);   
         }
     }
-
     const handleAddUser = async () => {
         try {
             navigate('add-user');
         } catch (error) {
             console.error("Unable to navigate user", error);
-            
         }
     }
-
   return (
     <div className="box-body">
         <div className="add-user">
@@ -74,7 +64,7 @@ const Users = () => {
         </div>
         <div className="content">
             {users.map((user, index) => (
-                <div className="user" key={user.id}>
+                <div className="user" key={user.id || index}>
                     <div className="user-name" onClick={() => handleUsername(user.id)}>{user.username}</div>
                     <div className="user-type">
                         <span className="info">{user.user_type ||'No type yet.'}</span>

@@ -59,6 +59,36 @@
                     color: rgb(214, 243, 218);
                     cursor: pointer;
                 }
+                .btn {
+                    padding: 7px 10px;
+                    border-radius: 24px;
+                    background-color: #171717;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    font-weight: 500;
+
+                    &:hover {
+                        background-color: #171717b5;
+                    }
+                }
+            }
+            .feature-reason {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+
+                .reason {
+                    width: 70%;
+                    overflow: auto;
+                    border-radius: 7px;
+                    padding: 10px;
+                    border: none;
+                    outline: none;
+                    background-color: #b1b0b0;
+                    color: #000;
+                }
 
                 .btns {
                     display: flex;
@@ -89,8 +119,6 @@
                         }
                     }
                 }
-
-                
             }
         }
     }      
