@@ -47,7 +47,8 @@ const AdminDash = () => {
     const userId = new URLSearchParams(window.location.search).get('id');
 
     if (!userId) {
-      setError("user doesn't exist");
+      // Clear users state when no user is selected
+      setUsers(null);
       return;
     }
 
@@ -87,21 +88,18 @@ const AdminDash = () => {
             <span className={`logout-dropdown ${isDropdownOpen ? 'show': ''}`} onClick={handleLogout}>Log out</span>
           </div>
         </div>
-        
+                
         <div className="box-titles">
           <div className="titles">
               <Link to={'./'}>Users</Link>
               <Link to={'./user-info'}>User Information</Link>
-              {users ? (
+              {users && (
                 <Link to={`./assign-projects/${users.id}`}>Projects</Link>
-              ) : (
-                <Link to={`./assign-projects`}>Projects</Link>
               )}
           </div>
           <hr />
         </div>
-
-      </div>
+       </div>
       <div className="admindash-subcontainer">
         <Outlet/>
       </div>

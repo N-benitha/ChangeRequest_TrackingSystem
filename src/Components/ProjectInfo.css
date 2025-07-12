@@ -26,7 +26,7 @@
         align-self: start;
         gap: 20px;
 
-        .feature {
+        .project-feature {
             display: flex;
             flex-direction: column;
             padding: 20px;
@@ -40,21 +40,21 @@
 
             }
 
-            .feature-title {
+            .project-feature-title {
                 display: flex;
                 justify-content: space-between;
                 cursor: pointer;
                 
-                .feature-name {
+                .project-feature-name {
                     font-weight: 600;
                 }
-                .feature-date {
+                .project-feature-date {
                     font-size: 12px;
                     font-style: italic;
                     color: #868585;
                 }
             }
-            .feature-description {
+            .project-feature-description {
                 display: flex;
                 justify-content: space-between;
 
@@ -63,7 +63,7 @@
                     cursor: pointer;
                 }
 
-                .btn-status {
+                .project-btn-status {
                     padding: 5px 10px;
                     border-radius: 24px;
                     border: none;
@@ -87,7 +87,7 @@
                         }
                     }
 
-                    .rolledback {
+                    &.rolledback {
                         background-color: #AD0707;
 
                         &:hover {

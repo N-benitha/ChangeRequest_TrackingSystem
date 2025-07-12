@@ -36,7 +36,6 @@ const Approved = () => {
     DEPLOYED = "deployed"
   }
 
-  
   const [changeRequests, setChangeRequests] = useState<ChangeRequests[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,30 +46,39 @@ const Approved = () => {
     const fetchApprovedRequests = async () => {
       try {
         const response = await api.get(`/change-request/query?status=${RequestStatus.APPROVED}`);
-        setChangeRequests(response.data);
+        
+        if (Array.isArray(response.data)) {
+          setChangeRequests(response.data);
+        } else if (response.data.requests && Array.isArray(response.data.requests)) {
+          setChangeRequests(response.data.requests);
+        } else {
+          console.warn('Unexpected response format:', response.data);
+          setChangeRequests([]);
+        }
+        
       } catch (error) {
         setError("Failed to fetch approved requests");
         console.error("Error fetching approved requests:", error);
       } finally {
-      setLoading(false);
+        setLoading(false);
       }
     }
     fetchApprovedRequests();
   }, []);
 
- const toggleExpanded = (requestId: string) => {
+  const toggleExpanded = (requestId: string) => {
     const newExpanded = new Set(expandedRequests);
     if (newExpanded.has(requestId)) {
       newExpanded.delete(requestId);
     } else {
       newExpanded.add(requestId);
     }
-    setExpandedRequests (newExpanded);
+    setExpandedRequests(newExpanded);
   };
   
   const handleMarkAsDeployed = async (id: string) => {
     try {
-      setProcessingRequests (prev => new Set (prev).add(id));
+      setProcessingRequests(prev => new Set(prev).add(id));
       await api.patch(`/change-request/${id}`, {
         status: RequestStatus.DEPLOYED
       });
@@ -82,14 +90,14 @@ const Approved = () => {
       setError("Failed to mark as deployed");
       console.error("Error marking as deployed:", error);
     } finally {
-      setProcessingRequests (prev => {
+      setProcessingRequests(prev => {
         const newSet = new Set(prev);
         newSet.delete(id);
         return newSet;
       });
     }
   };
-  // Format date for display
+  
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -107,82 +115,89 @@ const Approved = () => {
       default: return '#6c757d';
     }
   };
+  
   if (loading) return <div>Loading approved requests...</div>;
-  if (error) return <div style={{color: 'red'}}>Error: {error}</div>
+  if (error) return <div style={{color: 'red'}}>Error: {error}</div>;
 
   return (
     <>
-        <div className="box-body">
-          <div className="approved-header">
-            <h2>Approved Change Requests</h2>
-            <span className='request-count'>{changeRequests.length} approved requests</span>
-          </div>
+      <div className="approved-box-body">
+        <div className="approved-header">
+          <h2>Approved Change Requests</h2>
+          <span className='approved-request-count'>{changeRequests.length} approved requests</span>
+        </div>
 
-          <div className="content">
-            {changeRequests.length > 0 ?
-              changeRequests.map((changeRequest, index) => (
-                <div className="feature" key={changeRequest.id || index}>
-                  <div className="feature-header">
-                    <div className="feature-title">
-                      <div className="feature-name">
-                        <span className='request-type'>{changeRequest.request_type}</span>
-                        <span className="project-name">{changeRequest.project.title}</span>
-                      </div>
-                      <div className="feature-meta">
-                        <span className='status-badge' style={{backgroundColor: getStatusColor(changeRequest.status)}}>
-                          {changeRequest.status.toUpperCase()}
-                        </span>
-                        <span className="feature-date">
-                          Approved: {formatDate(changeRequest.updated_at)}
-                        </span>
-                      </div>
+        <div className="approved-content">
+          {changeRequests.length > 0 ?
+            changeRequests.map((changeRequest, index) => (
+              <div className="approved-feature" key={changeRequest.id || index}>
+                <div className="approved-feature-header">
+                  <div className="approved-feature-title">
+                    <div className="approved-feature-name">
+                      <span className='approved-request-type'>{changeRequest.request_type}</span>
+                      <span className="approved-project-name">- {changeRequest.project.title}</span>
                     </div>
-                    <button className='"expand-btn' onClick={() => toggleExpanded(changeRequest.id)}>
-                      {expandedRequests.has(changeRequest.id) ? '▼' : '▶'}
-                    </button>
+                    <div className="approved-feature-meta">
+                      <span className='approved-status-badge' style={{backgroundColor: getStatusColor(changeRequest.status)}}>
+                        {changeRequest.status.toUpperCase()}
+                      </span>
+                      <span className="approved-feature-date">
+                        Approved: {formatDate(changeRequest.updated_at)}
+                      </span>
+                    </div>
                   </div>
+                  <button 
+                    className="approved-expand-btn" 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleExpanded(changeRequest.id);
+                    }}
+                  >
+                    {expandedRequests.has(changeRequest.id) ? '▼' : '▶'}
+                  </button>
+                </div>
 
-                  {expandedRequests.has(changeRequest.id) && (
-                  <div className="feature-details">
-                    <div className="feature-description">
-                      <div className="detail-row">
+                {expandedRequests.has(changeRequest.id) && (
+                  <div className="approved-feature-details">
+                    <div className="approved-feature-description">
+                      <div className="approved-detail-row">
                         <strong>Description:</strong>
                         <span>{changeRequest.description}</span>
                       </div>
                       
-                      <div className="detail-row">
+                      <div className="approved-detail-row">
                         <strong>Requested by:</strong>
                         <span>{changeRequest.user.username}</span>
                       </div>
 
-                      <div className="detail-row">
+                      <div className="approved-detail-row">
                         <strong>Project:</strong>
                         <span>{changeRequest.project.title}</span>
                       </div>
 
                       {changeRequest.deployment_date && (
-                        <div className="detail-row">
+                        <div className="approved-detail-row">
                           <strong>Scheduled Deployment:</strong>
                           <span>{formatDate(changeRequest.deployment_date)}</span>
                         </div>
                       )}
 
                       {changeRequest.reason && (
-                        <div className="detail-row">
+                        <div className="approved-detail-row">
                           <strong>Approval Reason:</strong>
                           <span>{changeRequest.reason}</span>
                         </div>
                       )}
 
-                      <div className="detail-row">
+                      <div className="approved-detail-row">
                         <strong>Created:</strong>
                         <span>{formatDate(changeRequest.created_at)}</span>
                       </div>
                     </div>
 
-                    <div className="feature-actions">
+                    <div className="approved-feature-actions">
                       <button 
-                        className="btn-deploy"
+                        className="approved-btn-deploy"
                         onClick={() => handleMarkAsDeployed(changeRequest.id)}
                         disabled={processingRequests.has(changeRequest.id)}
                       >
@@ -192,15 +207,15 @@ const Approved = () => {
                   </div>
                 )}
               </div>
-              )) : (
-                <div className="no-requests">
-                  <p>No approved requests found.</p>
-                  <span>Approved change requests will appear here.</span>
-                </div>
-              )
-            }
-          </div>
+            )) : (
+              <div className="approved-no-requests">
+                <p>No approved requests found.</p>
+                <span>Approved change requests will appear here.</span>
+              </div>
+            )
+          }
         </div>
+      </div>
     </>
   )
 }

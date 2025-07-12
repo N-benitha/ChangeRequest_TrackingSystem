@@ -77,15 +77,15 @@ const ChangeRequestHistory = () => {
           <div className="content">
             {changeRequests.length > 0 ? (
               changeRequests.map((changeRequest, index) => (
-                <div className="feature" key={changeRequest.id || index}>
-                  <div className="feature-title">
-                    <div className="feature-name">{changeRequest.request_type}:</div>
-                    <div className="feature-date">{changeRequest.updated_at}</div>
+                <div className="dev-feature" key={changeRequest.id || index}>
+                  <div className="dev-feature-title">
+                    <div className="dev-feature-name">{changeRequest.request_type}:</div>
+                    <div className="dev-feature-date">{changeRequest.updated_at}</div>
                   </div>
                     
-                  <div className="feature-description">
-                    <span className='info'>{changeRequest.description} <span className='readmore'>Read more...</span></span>
-                    <button className='btn-status'>{changeRequest.status}</button>
+                  <div className="dev-feature-description">
+                    <span className='dev-info'>{changeRequest.description} <span className='readmore'>Read more...</span></span>
+                    <button className={`dev-btn-status ${changeRequest.status}`}>{changeRequest.status}</button>
                   </div>
               </div>))
             ) : (

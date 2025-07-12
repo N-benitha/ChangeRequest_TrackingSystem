@@ -1,0 +1,247 @@
+
+.features {
+    /* background-color: rgb(2, 65, 44); */
+    padding: 25px 0;
+}
+
+.box-body {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rolledback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(131, 131, 131, 0.4);
+}
+
+.rolledback-header h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.request-count {
+    color: #666;
+    font-size: 0.9rem;
+    background-color: rgba(220, 53, 69, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.feature {
+    border-bottom: 1px solid rgb(131, 131, 131, 0.4);
+    transition: background-color 0.2s ease;
+}
+
+.feature:last-child {
+    border-bottom: none;
+}
+
+.feature:hover {
+    cursor: pointer;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.feature-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.feature-title {
+    flex: 1;
+}
+
+.feature-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.request-type {
+    font-weight: 600;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.project-name {
+    color: #666;
+    font-weight: normal;
+}
+
+.feature-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.status-badge {
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    background-color: #dc3545;
+}
+
+.feature-date {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.expand-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+.expand-btn:hover {
+    color: #fff;
+}
+
+.feature-details {
+    padding: 20px;
+    background-color: rgba(220, 53, 69, 0.05);
+    border-top: 1px solid rgb(131, 131, 131, 0.2);
+}
+
+.feature-description {
+    margin-bottom: 20px;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 12px;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.detail-row strong {
+    min-width: 150px;
+    color: #fff;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.detail-row span {
+    color: #666;
+    flex: 1;
+}
+
+.rollback-reason {
+    background-color: rgba(220, 53, 69, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 4px solid #dc3545;
+}
+
+.rollback-reason strong {
+    color: #dc3545;
+}
+
+.reason-text {
+    color: #721c24;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.request-type-detail {
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #495057;
+}
+
+.rollback-info {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgb(131, 131, 131, 0.2);
+}
+
+.info-box {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    border-radius: 6px;
+    padding: 12px;
+    color: #721c24;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.info-box strong {
+    color: #dc3545;
+}
+
+.no-requests {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.no-requests p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.no-requests span {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+
+@media (max-width: 768px) {
+    .rolledback-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .feature-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px 20px;
+    }
+    
+    .feature-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .detail-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .detail-row strong {
+        min-width: unset;
+    }
+    
+    .rollback-reason {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

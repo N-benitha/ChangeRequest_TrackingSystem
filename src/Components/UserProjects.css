@@ -1,10 +1,10 @@
-.project-count {
+.devdash-project-count {
     margin: 20px;
     padding: 10px;
     /* display: flex; */
     float: right;
 }
-.content {
+.devdash-content {
     width: 140vh;
     margin: 20px;
     /* padding: 10px; */
@@ -14,7 +14,7 @@
     gap: 10px;
     /* background-color: rgb(2, 2, 57); */
 
-    .project {
+    .devdash-project {
         display: flex;
         flex-direction: column;
         padding: 20px;
@@ -27,13 +27,13 @@
     
         }
 
-        .project-name {
+        .devdash-project-name {
             font-weight: 600;
             cursor: pointer;
             align-self: start;
         }
     
-        .project-description {
+        .devdash-project-description {
             display: flex;
             justify-content: space-between;
     
@@ -42,7 +42,7 @@
                 cursor: pointer;
             }
     
-            .btn-status {
+            .devdash-btn-status {
                 padding: 5px 10px;
                 border-radius: 24px;
                 border: none;

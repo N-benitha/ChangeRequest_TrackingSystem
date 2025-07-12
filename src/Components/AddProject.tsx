@@ -1,57 +1,138 @@
 import axios from 'axios';
 import api from '../api/axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './AddProject.css'
 
 const AddProject = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        console.log("AddProject component mounted!");
+        console.log("Current URL:", window.location.href);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        if (!title.trim() || !description.trim()) {
+            setError('Please fill in all fields');
+            return;
+        }
+
+        setLoading(true);
+        setError('');
+
         try {
-            await api.post(
-            `http://localhost:3000/project/create`,
-            {
-                title: title,
-                description: description
+            console.log("Creating project with:", { title, description });
+            
+            const response = await api.post('/project/create', {
+                title: title.trim(),
+                description: description.trim()
             });
 
+            console.log('Project created successfully:', response.data);
+            
             setTitle('');
             setDescription('');
-            console.log('Project created');
             
+            alert('Project created successfully!');
+            navigate('../');
             
         } catch (error) {
-            setError(error)
-            console.error("User wasn't created", error);
+            console.error("Failed to create project:", error);
+            
+            if (error.response?.data?.message) {
+                setError(error.response.data.message);
+            } else {
+                setError('Failed to create project. Please try again.');
+            }
+        } finally {
+            setLoading(false);
         }
     }
 
-  return (
-    <div className="project-container">
-      <form onSubmit={handleSubmit}>
-        <h2>New Project</h2>
-        <div className="form-content">
-          <div className="form-content-item">
-            <p>Title:</p>
-            <input type="text" className='project-text' placeholder='Enter Title' onChange={(e) => setTitle(e.target.value)}/>
-          </div>
+    return (
+        <div className="project-container">            
+            <form onSubmit={handleSubmit}>
+                <h2>New Project</h2>
+                
+                {error && (
+                    <div className="error-message" style={{ 
+                        color: 'red', 
+                        backgroundColor: 'rgba(255,0,0,0.1)', 
+                        padding: '10px', 
+                        marginBottom: '15px',
+                        borderRadius: '4px'
+                    }}>
+                        {error}
+                    </div>
+                )}
+                
+                <div className="form-content">
+                    <div className="form-content-item">
+                        <p>Title:</p>
+                        <input 
+                            type="text" 
+                            className='project-text' 
+                            placeholder='Enter Title'
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            disabled={loading}
+                            required
+                        />
+                    </div>
 
-          <div className="form-content-item">
-            <p>Description:</p>
-            <textarea name="description" className='project-text' placeholder='Enter Description' cols={60} rows={5} onChange={(e) => setDescription(e.target.value)}/>
-          </div>
+                    <div className="form-content-item">
+                        <p>Description:</p>
+                        <textarea 
+                            name="description" 
+                            className='project-text' 
+                            placeholder='Enter Description' 
+                            cols={60} 
+                            rows={5}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            disabled={loading}
+                            required
+                        />
+                    </div>
 
-          <button type="submit" className='btn-1'>Save Changes</button>
-
-        </div>          
-
-      </form>
-
-    </div>
-  )
+                    <div className="form-buttons">
+                        <button 
+                            type="submit" 
+                            className='btn-1'
+                            disabled={loading || !title.trim() || !description.trim()}
+                        >
+                            {loading ? 'Creating...' : 'Save Changes'}
+                        </button>
+                        
+                        <button 
+                            type="button" 
+                            className='btn-cancel'
+                            onClick={() => navigate('../')}
+                            disabled={loading}
+                            style={{
+                                marginLeft: '10px',
+                                padding: '10px 20px',
+                                backgroundColor: '#666',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>          
+            </form>
+        </div>
+    )
 }
 
 export default AddProject

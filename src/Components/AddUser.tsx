@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './AddUser.css'
 import axios from 'axios';
 import api from '../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddUser = () => {
     const [name, setName] = useState('');
@@ -10,12 +11,19 @@ const AddUser = () => {
     const [error, setError] = useState('');
     const [userType, setUserType] = useState('');
     const [userStatus, setUserStatus] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!name || !email || !password || !userType || !userStatus) {
+            setError('Please fill in all fields');
+            return;
+        }
+        setError('');
+
         try {
             await api.post(
-            `http://localhost:3000/users/create`,
+            `/users/create`,
             {
                 username: name,
                 email: email,
@@ -29,6 +37,7 @@ const AddUser = () => {
             setPassword('');
             setUserType('');
             setUserStatus('');
+            alert("User Added");
             
         } catch (error) {
             setError(error)
@@ -43,17 +52,17 @@ const AddUser = () => {
         <div className="form-content">
           <div className="form-content-item">
             <p>Username:</p>
-            <input type="text" className='user-text' placeholder='Enter Name' onChange={(e) => setName(e.target.value)}/>
+            <input type="text" className='user-text' placeholder='Enter Name' value={name} onChange={(e) => setName(e.target.value)}/>
           </div>
 
           <div className="form-content-item">
             <p>Email:</p>
-            <input type="email" className='user-email' placeholder='Enter email' onChange={(e) => setEmail(e.target.value)}/>
+            <input type="email" className='user-email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)}/>
           </div>
 
           <div className="form-content-item">
             <p>Password:</p>
-            <input type="password" className='user-password' placeholder='Enter password' onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" className='user-password' placeholder='Enter password' value={password} onChange={(e) => setPassword(e.target.value)}/>
           </div>
 
           <div className="form-content-item">

@@ -51,6 +51,7 @@
             .project-name {
                 display: flex;
                 font-weight: 600;
+                cursor: pointer;
             }
             .project-type {
                 display: flex;

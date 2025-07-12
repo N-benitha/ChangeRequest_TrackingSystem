@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
+import { Link, Outlet, useNavigate, useParams, useLocation } from 'react-router-dom'
 import './ProjectsDash.css'
 import api from '../api/axios';
 
@@ -25,6 +25,7 @@ const ProjectsDash = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {id: projectId} = useParams();
 
@@ -48,25 +49,46 @@ const ProjectsDash = () => {
   }, []);
 
   useEffect(() => {
-    // const projectId = new URLSearchParams(window.location.search).get('id');
+    // Check if current route needs a project ID
+    const routesThatNeedProjectId = ['project-info', 'project-update'];
+    const currentPath = location.pathname;
+    const needsProjectId = routesThatNeedProjectId.some(route => currentPath.includes(route));
 
-    if (!projectId) {
-      setError("Project doesn't exist");
+    console.log('Current path:', currentPath);
+    console.log('Project ID:', projectId);
+    console.log('Needs project ID:', needsProjectId);
+
+    // Only redirect if we're on a route that requires a project ID but don't have one
+    if (needsProjectId && !projectId) {
+      console.log('Redirecting because route needs project ID but none provided');
+      setProject(null);
+      setProjectTitle('');
+      setError('');
+      navigate('./');
       return;
     }
-    const fetchProject = async () => {
-      try {
-        const response = await api.get(`/project/${projectId}`);
-        setProject(response.data);
-        setProjectTitle(response.data.title)
-      } catch (error) {
-        setError("Failed to fetch user");
-        console.log(error);
-      }
-    };
 
-    fetchProject();
-  }, [navigate]);
+    // If we have a project ID, fetch the project
+    if (projectId) {
+      const fetchProject = async () => {
+        try {
+          const response = await api.get(`/project/${projectId}`);
+          setProject(response.data);
+          setProjectTitle(response.data.title);
+          setError('');
+        } catch (error) {
+          setError("Failed to fetch project");
+          console.log(error);
+          navigate('./');
+        }
+      };
+
+      fetchProject();
+    } else {
+      setProject(null);
+      setProjectTitle('');
+    }
+  }, [projectId, navigate, location.pathname]);
   
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -75,10 +97,16 @@ const ProjectsDash = () => {
   const handleLogout = async () => {
     try {
       await api.post('/auth/logout');
-      navigate('/'); // Redirect to login page
+      navigate('/');
     } catch (error) {
       console.error('Logout failed:', error);
     }
+  };
+
+  const handleProjectsNavigation = () => {
+    setProject(null);
+    setProjectTitle('');
+    navigate('./');
   };
   
   return (
@@ -94,8 +122,10 @@ const ProjectsDash = () => {
         
         <div className="box-titles">
           <div className="titles">
-              <Link to={'./'}>Projects</Link>
-              <Link to={'./project-info'}>Project Information</Link>
+              <Link to={'./'} onClick={handleProjectsNavigation}>Projects</Link>
+              {project && (
+                <Link to={'./project-info'}>Project Information</Link>
+              )}
           </div>
           <hr />
         </div>

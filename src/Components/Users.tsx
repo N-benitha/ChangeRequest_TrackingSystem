@@ -69,12 +69,12 @@ const Users = () => {
                     <div className="user-type">
                         <span className="info">{user.user_type ||'No type yet.'}</span>
                         <div className="btns">
-                            <select className='btn-type' defaultValue="">
+                            {/* <select className='btn-type' defaultValue="">
                                 <option value="" disabled hidden>Select user type</option>
                                 <option value="developer">Developer</option>
                                 <option value="approver">Approver</option>
                                 <option value="admin">Admin</option>
-                            </select>
+                            </select> */}
                             <button className='btn-remove' onClick={() => handleRemove(user.id)}>Remove</button>
                         </div>
                     </div>

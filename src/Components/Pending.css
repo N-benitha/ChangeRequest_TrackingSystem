@@ -1,125 +1,319 @@
+/* Improved Pending.css - Modern, clean styling */
+
 .box-body {
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
     
     .deployments {
         width: 30%;
-        padding: 10px 20px;
+        padding: 15px 25px;
         display: flex;
-        align-self: end;
+        align-self: flex-end;
         gap: 25px;
+        margin-bottom: 20px;
+        background: rgba(25, 64, 64, 0.1);
+        border-radius: 12px;
+        border: 1px solid rgba(25, 64, 64, 0.2);
 
         span {
             display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
     }
 
     .content {
-        /* width: 145vh; */
-        margin: 10px;
-        padding: 20px;
+        margin: 0;
+        padding: 0;
         display: flex;
         flex-direction: column;
-        align-self: start;
         gap: 20px;
 
         .feature {
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            border-radius: 36px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(131, 131, 131, 0.4);
-            gap: 10px;
+            padding: 25px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(19, 49, 49, 0.9) 0%, rgba(25, 64, 64, 0.7) 100%);
+            border: 1px solid rgba(131, 131, 131, 0.3);
+            gap: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+
+            /* Subtle background pattern */
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+                pointer-events: none;
+            }
 
             &:hover {
-                background-color: rgba(25, 64, 64, 0.4);
-
+                background: linear-gradient(135deg, rgba(25, 64, 64, 0.8) 0%, rgba(35, 74, 74, 0.9) 100%);
+                border-color: rgba(25, 64, 64, 0.6);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             }
 
             .feature-title {
                 display: flex;
                 justify-content: space-between;
+                align-items: flex-start;
                 cursor: pointer;
+                margin-bottom: 5px;
                 
                 .feature-name {
-                    font-weight: 600;
+                    font-weight: 700;
+                    font-size: 1.1rem;
+                    color: #fff;
+                    text-transform: capitalize;
+                    line-height: 1.3;
+                    letter-spacing: 0.3px;
                 }
+                
                 .feature-date {
-                    font-size: 12px;
+                    font-size: 0.8rem;
                     font-style: italic;
-                    color: #868585;
+                    color: #a8b2b2;
+                    font-weight: 400;
+                    white-space: nowrap;
+                    margin-left: 15px;
                 }
             }
+
             .feature-description {
                 display: flex;
-                justify-content: space-between;
-
-                .readmore {
-                    color: rgb(214, 243, 218);
-                    cursor: pointer;
+                flex-direction: column;
+                gap: 15px;
+                
+                /* Info section styling */
+                & > strong {
+                    color: #4CAF50;
+                    font-weight: 600;
+                    font-size: 0.9rem;
                 }
+
+                .info {
+                    color: #e0e0e0;
+                    line-height: 1.5;
+                    margin: 8px 0;
+                    font-size: 0.95rem;
+
+                    .readmore {
+                        color: #81C784;
+                        cursor: pointer;
+                        font-weight: 500;
+                        margin-left: 8px;
+                        transition: color 0.2s ease;
+                        
+                        &:hover {
+                            color: #A5D6A7;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                /* Action button styling */
                 .btn {
-                    padding: 7px 10px;
-                    border-radius: 24px;
-                    background-color: #171717;
+                    align-self: flex-start;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
                     border: none;
                     outline: none;
                     cursor: pointer;
-                    font-weight: 500;
-
-                    &:hover {
-                        background-color: #171717b5;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    color: white;
+                    transition: all 0.2s ease;
+                    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+                    
+                    &:hover:not(:disabled) {
+                        background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+                    }
+                    
+                    &:disabled {
+                        background: #666;
+                        cursor: not-allowed;
+                        transform: none;
+                        box-shadow: none;
+                        opacity: 0.7;
                     }
                 }
             }
+
             .feature-reason {
-                position: relative;
                 display: flex;
-                flex-direction: row;
-                gap: 10px;
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                margin-top: 10px;
 
                 .reason {
-                    width: 70%;
-                    overflow: auto;
-                    border-radius: 7px;
-                    padding: 10px;
-                    border: none;
+                    width: 100%;
+                    min-height: 60px;
+                    border-radius: 8px;
+                    padding: 12px 15px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
                     outline: none;
-                    background-color: #b1b0b0;
-                    color: #000;
+                    background: rgba(255, 255, 255, 0.95);
+                    color: #333;
+                    font-size: 0.95rem;
+                    font-family: inherit;
+                    resize: vertical;
+                    transition: all 0.2s ease;
+                    
+                    &::placeholder {
+                        color: #666;
+                        font-style: italic;
+                    }
+                    
+                    &:focus {
+                        border-color: #4CAF50;
+                        background: #fff;
+                        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+                    }
+                    
+                    &:disabled {
+                        background: rgba(255, 255, 255, 0.6);
+                        cursor: not-allowed;
+                    }
                 }
 
                 .btns {
                     display: flex;
-                    gap: 10px;
+                    gap: 12px;
+                    justify-content: flex-end;
 
                     .btn-approve, .btn-rollback {
-                        padding: 5px 10px;
-                        border-radius: 24px;
+                        padding: 10px 18px;
+                        border-radius: 8px;
                         border: none;
                         outline: none;
                         cursor: pointer;
-                        font-weight: 500;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        transition: all 0.2s ease;
+                        min-width: 100px;
+                        color: white;
                     }
-    
-                    .btn-rollback {
-                        background-color: rgb(122, 3, 3);
-    
-                        &:hover {
-                            background-color: rgb(148, 2, 2);
+
+                    .btn-approve {
+                        background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+                        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+
+                        &:hover:not(:disabled) {
+                            background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%);
+                            transform: translateY(-1px);
+                            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
                         }
                     }
-    
-                    .btn-approve {
-                        background-color: #0D8205;
-    
-                        &:hover {
-                            background-color: #0a6504;
+
+                    .btn-rollback {
+                        background: linear-gradient(135deg, #F44336 0%, #D32F2F 100%);
+                        box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+
+                        &:hover:not(:disabled) {
+                            background: linear-gradient(135deg, #D32F2F 0%, #C62828 100%);
+                            transform: translateY(-1px);
+                            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+                        }
+                    }
+                    
+                    .btn-approve:disabled,
+                    .btn-rollback:disabled {
+                        background: #666;
+                        cursor: not-allowed;
+                        transform: none;
+                        box-shadow: none;
+                        opacity: 0.7;
+                    }
+                }
+            }
+        }
+        
+        /* Empty state styling */
+        & > span {
+            text-align: center;
+            color: #a8b2b2;
+            font-size: 1.1rem;
+            padding: 60px 20px;
+            background: rgba(25, 64, 64, 0.1);
+            border-radius: 12px;
+            border: 2px dashed rgba(25, 64, 64, 0.3);
+        }
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .box-body {
+        padding: 15px;
+        
+        .deployments {
+            width: 100%;
+            align-self: stretch;
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+        
+        .content {
+            gap: 15px;
+            
+            .feature {
+                padding: 20px;
+                
+                .feature-title {
+                    flex-direction: column;
+                    gap: 8px;
+                    align-items: flex-start;
+                    
+                    .feature-date {
+                        margin-left: 0;
+                    }
+                }
+                
+                .feature-reason {
+                    .btns {
+                        flex-direction: column;
+                        gap: 10px;
+                        
+                        .btn-approve, .btn-rollback {
+                            width: 100%;
                         }
                     }
                 }
             }
         }
-    }      
+    }
+}
+
+/* Loading and error states */
+.box-body > div[style*="color: red"] {
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
 }

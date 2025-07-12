@@ -55,8 +55,8 @@ function App() {
           <Route path='reports' element={<Reports/>}/>
           <Route path='admin/all-projects' element={<ProjectsDash />}>
             <Route index element={<AllProjects />} />
-            <Route path='project-update' element={<ProjectUpdate/>}/>
             <Route path='add-project' element={<AddProject />}/>
+            <Route path='project-update/:id' element={<ProjectUpdate/>}/>
             <Route path='project-info' element={<ProjectInfo />}/>
             <Route path='project-info/:id' element={<ProjectInfo />}/>
           </Route>

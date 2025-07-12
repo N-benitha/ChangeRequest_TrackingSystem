@@ -1,13 +1,9 @@
-/* Approved.css - Merged with existing styles */
-
-/* Keep your existing structure but enhance it */
-.features {
+.approved-features {
     /* background-color: rgb(2, 65, 44); */
     padding: 25px 0;
 }
 
-/* Updated to work with new component structure */
-.box-body {
+.approved-box-body {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
@@ -28,68 +24,71 @@
     font-size: 1.5rem;
 }
 
-.request-count {
+.approved-request-count {
     color: #fff;
     font-size: 0.9rem;
-    background-color: rgba(25, 64, 64, 0.1);
+    background-color: rgba(25, 64, 64, 0.3);
     padding: 5px 12px;
     border-radius: 20px;
+    border: 1px solid rgba(25, 64, 64, 0.5);
 }
 
-.content {
+.approved-content {
     display: flex;
     flex-direction: column;
-    gap: 0; /* Remove gap to match your border style */
+    gap: 0;
 }
 
-/* Enhanced feature container using your existing pattern */
-.feature {
+.approved-feature {
     background: #133131;
     border-bottom: 1px solid rgb(131, 131, 131, 0.4);
     transition: background-color 0.2s ease;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-.feature:last-child {
+.approved-feature:last-child {
     border-bottom: none;
 }
 
-.feature:hover {
+.approved-feature:hover {
     cursor: pointer;
     background-color: rgba(25, 64, 64, 0.4);
 }
 
-.feature-header {
+.approved-feature-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px; /* Match your existing padding */
+    padding: 15px 20px;
 }
 
-.feature-title {
+.approved-feature-title {
     flex: 1;
 }
 
-/* Keep your existing feature-name style but enhance it */
-.feature-name {
+.approved-feature-name {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: 600;
 }
 
-.request-type {
+.approved-request-type {
     font-weight: 600;
-    color: #b3b1b1;
+    color: #4CAF50;
     text-transform: capitalize;
+    font-size: 1rem;
 }
 
-.project-name {
+.approved-project-name {
     color: #fff;
     font-weight: normal;
+    font-size: 1rem;
 }
 
-.feature-meta {
+.approved-feature-meta {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -97,110 +96,133 @@
     margin-top: 5px;
 }
 
-.status-badge {
+.approved-status-badge {
     color: white;
-    padding: 3px 8px;
+    padding: 4px 10px;
     border-radius: 12px;
     font-size: 0.8rem;
     font-weight: 500;
     text-transform: uppercase;
-    background-color: #28a745; /* Green for approved */
+    background-color: #28a745;
 }
 
-.feature-date {
-    color: #666;
+.approved-feature-date {
+    color: #b3b1b1;
     font-size: 0.85rem;
 }
 
-.expand-btn {
-    background: none;
-    border: none;
+.approved-expand-btn {
+    background: rgba(25, 64, 64, 0.2);
+    border: 1px solid rgba(25, 64, 64, 0.4);
     font-size: 1.2rem;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 8px 12px;
     color: #fff;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    min-width: 40px;
 }
 
-.expand-btn:hover {
-    color: #333;
+.approved-expand-btn:hover {
+    background-color: rgba(25, 64, 64, 0.6);
+    color: #fff;
+    border-color: rgba(25, 64, 64, 0.8);
 }
 
-/* Details section - only shown when expanded */
-.feature-details {
+.approved-feature-details {
+    display: flex;
+    flex-direction: column;
     padding: 20px;
-    background-color: rgba(25, 64, 64, 0.05);
+    background-color: rgba(25, 64, 64, 0.1);
     border-top: 1px solid rgb(131, 131, 131, 0.2);
+    margin-top: 0;
 }
 
-.feature-description {
+.approved-feature-description {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
 }
 
-.detail-row {
+.approved-detail-row {
     display: flex;
-    margin-bottom: 12px;
+    flex-direction: row;
+    margin-bottom: 15px;
     gap: 15px;
     align-items: flex-start;
+    width: 100%;
 }
 
-.detail-row strong {
-    min-width: 150px;
-    color: #333;
+.approved-detail-row strong {
+    min-width: 160px;
+    color: #4CAF50;
     font-weight: 600;
     flex-shrink: 0;
 }
 
-.detail-row span {
+.approved-detail-row span {
     color: #fff;
     flex: 1;
+    line-height: 1.4;
 }
 
-.feature-actions {
+.approved-feature-actions {
     display: flex;
     gap: 10px;
     padding-top: 15px;
     border-top: 1px solid rgb(131, 131, 131, 0.2);
+    margin-top: auto;
 }
 
-.btn-deploy {
-    background-color: rgba(25, 64, 64, 0.8);
+.approved-feature .approved-feature-details {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.approved-feature .approved-feature-details .approved-feature-description {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.approved-btn-deploy {
+    background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 10px 18px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
+    font-weight: 500;
     transition: background-color 0.2s ease;
 }
 
-.btn-deploy:hover:not(:disabled) {
-    background-color: rgba(25, 64, 64, 1);
+.approved-btn-deploy:hover:not(:disabled) {
+    background-color: #45a049;
 }
 
-.btn-deploy:disabled {
+.approved-btn-deploy:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
+    opacity: 0.6;
 }
 
-.no-requests {
+.approved-no-requests {
     text-align: center;
     padding: 40px 20px;
     color: #fff;
 }
 
-.no-requests p {
+.approved-no-requests p {
     font-size: 1.1rem;
     margin-bottom: 10px;
     color: #fff;
 }
 
-.no-requests span {
+.approved-no-requests span {
     font-size: 0.9rem;
-    color: #fff;
+    color: #b3b1b1;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .approved-header {
         flex-direction: column;
@@ -208,25 +230,25 @@
         gap: 10px;
     }
     
-    .feature-header {
+    .approved-feature-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
         padding: 15px 20px;
     }
     
-    .feature-meta {
+    .approved-feature-meta {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
     }
     
-    .detail-row {
+    .approved-detail-row {
         flex-direction: column;
         gap: 5px;
     }
     
-    .detail-row strong {
+    .approved-detail-row strong {
         min-width: unset;
     }
 }

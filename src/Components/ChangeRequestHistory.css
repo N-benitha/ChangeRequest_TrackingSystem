@@ -26,7 +26,7 @@
         align-self: start;
         gap: 20px;
 
-        .feature {
+        .dev-feature {
             display: flex;
             flex-direction: column;
             padding: 20px;
@@ -40,21 +40,22 @@
 
             }
 
-            .feature-title {
+            .dev-feature-title {
                 display: flex;
                 justify-content: space-between;
                 cursor: pointer;
                 
-                .feature-name {
+                .dev-feature-name {
                     font-weight: 600;
+                    text-transform: capitalize;
                 }
-                .feature-date {
+                .dev-feature-date {
                     font-size: 12px;
                     font-style: italic;
                     color: #868585;
                 }
             }
-            .feature-description {
+            .dev-feature-description {
                 display: flex;
                 justify-content: space-between;
 
@@ -63,17 +64,43 @@
                     cursor: pointer;
                 }
 
-                .btn-status {
-                    padding: 5px 10px;
-                    border-radius: 24px;
+                .dev-btn-status {
+                    height: 30px;
+                    align-self: center;
+                    padding: 10px;
+                    border-radius: 9px;
                     border: none;
                     outline: none;
                     cursor: pointer;
-                    background-color: rgb(122, 3, 3);
-                    font-weight: 500;
+                    white-space: nowrap; /* Prevents button text from wrapping */
+                    transition: background-color 0.2s ease; /* Smooth hover effect */
+                }
+                .dev-btn-status.approved {
+                    background-color: #0D8205;
 
                     &:hover {
-                        background-color: rgb(148, 2, 2);
+                        background-color: #0b6704;
+                    }
+                }
+                .dev-btn-status.pending {
+                    background-color: #9b9602;
+
+                    &:hover {
+                        background-color: #797501;
+                    }
+                }
+                .dev-btn-status.rolledback {
+                    background-color: #AD0707;
+
+                    &:hover {
+                        background-color: #8d0505;
+                    }
+                }
+                .dev-btn-status.deployed {
+                    background-color: #1976D2;
+
+                    &:hover {
+                        background-color: #1565C0;
                     }
                 }
             }

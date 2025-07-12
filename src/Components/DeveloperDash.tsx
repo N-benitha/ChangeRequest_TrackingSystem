@@ -6,29 +6,20 @@ import api from '../api/axios';
 
 const DeveloperDash = () => {
   interface User {
-      id: string;
-      username: string;
-      email: string,
-      password: string,
-      user_type?: string;
-      status?: string;
+    id: string;
+    username: string;
+    email: string,
+    password: string,
+    user_type?: string;
+    status?: string;
   }
-  
+
   interface Project {
     id: string;
     title: string;
     description: string;
   }
 
-  interface User {
-      id: string;
-      username: string;
-      email: string,
-      password: string,
-      user_type?: string;
-      status?: string;
-    }
-  
   const [project, setProject] = useState<Project | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -37,7 +28,6 @@ const DeveloperDash = () => {
   const navigate = useNavigate();
 
   const { id: projectId } = useParams();
-
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -58,23 +48,31 @@ const DeveloperDash = () => {
     fetchUser();
   }, []);
 
-
   useEffect(() => {
-    if (!projectId) return;
+    if (!projectId) {
+      setProject(null);
+      setError('');
+      
+      navigate('./');
+      return;
+    }
 
     const fetchProject = async () => {
-      try {      
+      try {
         const response = await api.get(`/project/${projectId}`);
         setProject(response.data);
+        setError('');
       } catch (error) {
-      setError("Failed to fetch project data");
-      console.error("Error fetching:", error);
+        setError("Failed to fetch project data");
+        console.error("Error fetching:", error);
+        
+        navigate('./');
       }
     };
-    fetchProject();
 
-  }, [navigate, projectId]);
-  
+    fetchProject();
+  }, [projectId, navigate]);
+
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -82,13 +80,18 @@ const DeveloperDash = () => {
   const handleLogout = async () => {
     try {
       await api.post('/auth/logout');
-      navigate('/'); // Redirect to login page
+      navigate('/');
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
 
-  // if (loading) return <span>Loading...</span>;
+  const handleProjectsNavigation = () => {
+    setProject(null);
+    navigate('./');
+  };
+
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className='devdash-container'>
@@ -103,13 +106,16 @@ const DeveloperDash = () => {
         
         <div className="box-titles">
           <div className="titles">
-              <Link to={'./'}>Projects</Link>
-              <Link to={'./change-requests-history/:id'}>Change Request History</Link>
-              <Link to={'./actions/:id'}>Actions</Link>
+            <Link to={'./'} onClick={handleProjectsNavigation}>Projects</Link>
+            {project && (
+              <>
+                <Link to={`./change-requests-history/${project.id}`}>Change Request History</Link>
+                <Link to={`./actions/${project.id}`}>Actions</Link>
+              </>
+            )}
           </div>
           <hr />
         </div>
-
       </div>
       <div className="devdash-subcontainer">
         <Outlet/>

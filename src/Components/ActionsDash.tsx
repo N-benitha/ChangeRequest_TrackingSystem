@@ -160,7 +160,7 @@ const ActionsDash = () => {
             </div>
 
             <div className="form-buttons">
-              <button className='btn-1'>Draft</button>
+              {/* <button className='btn-1'>Draft</button> */}
               <button 
                 className='btn-1' 
                 type='submit'

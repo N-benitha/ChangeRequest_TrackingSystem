@@ -10,6 +10,7 @@
         font-weight: 600;
         font-size: 24px;
     }
+    
     .user-projects {
         height: 50vh;
         width: 80%;
@@ -25,24 +26,51 @@
         h3 {
             align-self: start;
             padding-left: 10px;
+            margin: 10px 0;
+            flex-shrink: 0; /* Prevents header from shrinking */
         }
 
         .project-content {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            overflow-y: scroll;
+            flex: 1; /* Takes remaining space */
+            overflow-y: auto; /* Changed from scroll to auto */
             scrollbar-width: thin;
-            scrollbar-color: #133131;
+            scrollbar-color: #133131 transparent;
+            
+            /* Custom scrollbar for webkit browsers */
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            &::-webkit-scrollbar-track {
+                background: transparent;
+                border-radius: 4px;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background: #133131;
+                border-radius: 4px;
+                
+                &:hover {
+                    background: rgba(25, 64, 64, 0.8);
+                }
+            }
             
             .project-items {
                 /* background-color: #3b3233; */
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                /* padding: 5px; */
+                padding: 15px; /* Added padding for better spacing */
                 gap: 10px;
                 border-top: 1px solid rgb(131, 131, 131, 0.4);
+                flex-shrink: 0; /* Prevents items from shrinking */
+
+                &:first-child {
+                    border-top: none; /* Remove border from first item */
+                }
 
                 &:hover {
                     cursor: pointer;
@@ -56,6 +84,7 @@
                     /* align-self: start; */
                     flex: 1;
                     min-width: 0;
+                    gap: 5px; /* Added gap between elements */
 
                     .title {
                         font-size: 18px;
@@ -90,6 +119,7 @@
                         word-wrap: break-word;
                         overflow-wrap: break-word;
                         font-size: 14px;
+                        line-height: 1.4; /* Better readability */
                         /* margin-top: 5px; */
                     }
                     .date {
@@ -109,6 +139,8 @@
                     border: none;
                     outline: none;
                     cursor: pointer;
+                    white-space: nowrap; /* Prevents button text from wrapping */
+                    transition: background-color 0.2s ease; /* Smooth hover effect */
                 }
                 .btn-status.approved {
                     background-color: #0D8205;
@@ -131,6 +163,13 @@
                         background-color: #8d0505;
                     }
                 }
+                .btn-status.deployed {
+                    background-color: #1976D2;
+
+                    &:hover {
+                        background-color: #1565C0;
+                    }
+                }
             }
         }
     }
@@ -139,6 +178,13 @@
         display: flex;
         /* background-color: #504646; */
         gap: 20px;
+        align-items: center; /* Better alignment */
+
+        p {
+            margin: 0; /* Remove default margin */
+            white-space: nowrap; /* Prevent label from wrapping */
+            min-width: 150px; /* Consistent label width */
+        }
 
         .project-text {
             height: 40px;
@@ -150,20 +196,70 @@
             border-radius: 12px;
             background-color: #b1b0b0;
             color: #000;
+            
+            &:focus {
+                background-color: #c1c0c0; /* Slight highlight on focus */
+            }
+            
+            &:disabled {
+                background-color: #888;
+                color: #555;
+                cursor: not-allowed;
+            }
         }
     }
 
     .btn-save {
-        align-self: end;
+        align-self: center; /* Better alignment */
         width: 15%;
+        min-width: 120px; /* Prevent button from being too small */
         padding: 10px 0;
         border-radius: 12px;
         border: none;
         background-color: #242424;
+        color: white; /* Explicit text color */
         cursor: pointer;
+        transition: background-color 0.2s ease; /* Smooth hover effect */
 
-        &:hover {
+        &:hover:not(:disabled) {
             background-color: #383838;
+        }
+        
+        &:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .assign-container {
+        padding: 15px;
+        
+        .user-projects {
+            width: 95%;
+            height: 40vh;
+        }
+        
+        .project-item {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+            
+            p {
+                min-width: auto;
+            }
+            
+            .project-text {
+                width: 100%;
+            }
+        }
+        
+        .btn-save {
+            width: 100%;
+            min-width: auto;
         }
     }
 }

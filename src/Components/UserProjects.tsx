@@ -47,15 +47,15 @@ const UserProjects = () => {
 
   return (
     <>
-      <span className='project-count'>{userProjects.length} projects</span>
+      <span className='devdash-project-count'>{userProjects.length} projects</span>
       {userProjects.length > 0 ? (
-        <div className="content">
+        <div className="devdash-content">
           {userProjects.map((project, index) => (          
-            <div className="project" key={project.id || index}>              
-              <div className="project-name" onClick={() => handleProject(project.id)}>{project.title}</div>
-              <div className="project-description">
-                <span className='info'>{project.description} <span className='readmore'>Read more...</span></span>
-                <button className='btn-status' onClick={() => handleButton(project.id)}>Request Approval</button>
+            <div className="devdash-project" key={project.id || index}>              
+              <div className="devdash-project-name" onClick={() => handleProject(project.id)}>{project.title}</div>
+              <div className="devdash-project-description">
+                <span className='devdash-info'>{project.description} <span className='readmore'>Read more...</span></span>
+                <button className='devdash-btn-status' onClick={() => handleButton(project.id)}>Request Approval</button>
               </div>
             </div>
           ))}

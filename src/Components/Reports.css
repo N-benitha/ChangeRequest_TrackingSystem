@@ -27,13 +27,50 @@
                 font-size: 1.1rem;
                 cursor: pointer;
             }
-            .btn-1 {
-                padding: 20px;
-                border-radius: 36px;
-                border: none;
-                outline: none;
-                background-color: #242424;
-                cursor: pointer;
+
+            .box-logout {
+                position: relative;
+
+                .btn-1 {
+                    padding: 20px;
+                    border-radius: 36px;
+                    border: none;
+                    outline: none;
+                    background-color: #242424;
+                    cursor: pointer;
+                    color: white;
+
+                    &:hover {
+                        background-color: rgba(25, 64, 64, 0.4);
+                    }
+                }
+
+                .logout-dropdown {
+                    position: absolute;
+                    top: 100%;
+                    right: 0;
+                    background-color: #242424;
+                    padding: 8px 16px;
+                    border-radius: 24px;
+                    cursor: pointer;
+                    white-space: nowrap;
+                    color: white;
+                    font-size: 0.9rem;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all 0.2s ease;
+                    z-index: 10;
+                    border: 1px solid rgb(131, 131, 131, 0.4);
+
+                    &:hover {
+                        background-color: rgba(25, 64, 64, 0.4);
+                    }
+
+                    &.show {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
             }
         }
 
@@ -59,7 +96,70 @@
                 border: none;
             }
         }
-        
+
+        .reports-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+
+            .reports-stats {
+                display: flex;
+                gap: 30px;
+                flex-wrap: wrap;
+
+                .stat-item {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    min-width: 80px;
+
+                    .stat-number {
+                        font-size: 1.8rem;
+                        font-weight: 700;
+                        color: #4CAF50;
+                        line-height: 1;
+                    }
+
+                    .stat-label {
+                        font-size: 0.8rem;
+                        color: rgba(131, 131, 131, 0.8);
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        margin-top: 4px;
+                    }
+                }
+            }
+
+            .filter-controls {
+                display: flex;
+                gap: 15px;
+                flex-wrap: wrap;
+
+                .filter-select,
+                .sort-select {
+                    padding: 8px 15px;
+                    border-radius: 24px;
+                    border: 1px solid rgb(131, 131, 131, 0.4);
+                    background-color: #242424;
+                    color: white;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    outline: none;
+
+                    &:hover {
+                        background-color: rgba(25, 64, 64, 0.4);
+                    }
+
+                    option {
+                        background-color: #242424;
+                        color: white;
+                    }
+                }
+            }
+        }
     }
 
     .reports-subcontainer {
@@ -93,22 +193,105 @@
                     border-top: none;
                 }
 
-                .req-name {
-                    font-weight: 600;
-                    align-self: start;
+                .request-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    margin-bottom: 15px;
+                    gap: 15px;
 
-                    &:hover {
-                        cursor: pointer;
+                    .req-name {
+                        font-weight: 600;
+                        align-self: start;
+                        flex: 1;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+
+                    .status-badge {
+                        padding: 4px 12px;
+                        border-radius: 24px;
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        color: white;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                        white-space: nowrap;
                     }
                 }
 
-                .owner {
+                .request-details {
                     display: flex;
-                    flex-direction: row;
-                    gap: 30px;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    margin-bottom: 10px;
+                    gap: 15px;
+
+                    .owner {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+
+                        .owner-name {
+                            font-weight: 500;
+                            color: #4CAF50;
+                            font-size: 0.95rem;
+                        }
+
+                        .on {
+                            font-size: 0.8rem;
+                            color: rgba(131, 131, 131, 0.8);
+                            font-style: italic;
+                        }
+                    }
+
+                    .request-meta {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        gap: 4px;
+
+                        .change-type {
+                            padding: 4px 10px;
+                            background-color: #242424;
+                            border: 1px solid rgb(131, 131, 131, 0.4);
+                            border-radius: 24px;
+                            font-size: 0.8rem;
+                            font-weight: 500;
+                            text-transform: capitalize;
+                            align-self: end;
+                        }
+
+                        .last-updated {
+                            font-size: 0.75rem;
+                            color: rgba(131, 131, 131, 0.8);
+                        }
+                    }
                 }
-                .change-type {
-                    align-self: end;
+
+                .request-reason {
+                    margin-top: 15px;
+                    padding: 12px;
+                    background-color: rgba(25, 64, 64, 0.2);
+                    border: 1px solid rgb(131, 131, 131, 0.4);
+                    border-radius: 24px;
+                    font-size: 0.9rem;
+
+                    strong {
+                        color: #4CAF50;
+                    }
+                }
+
+                .deployment-date {
+                    margin-top: 10px;
+                    font-size: 0.85rem;
+                    color: #4CAF50;
+
+                    strong {
+                        color: #4CAF50;
+                    }
                 }
 
                 &:hover {
@@ -117,6 +300,130 @@
                     &:first-child {
                         border-top-right-radius: 15px;
                         border-top-left-radius: 15px;
+                    }
+                }
+            }
+
+            .no-reports {
+                text-align: center;
+                padding: 60px 20px;
+                color: rgba(131, 131, 131, 0.8);
+
+                p {
+                    font-size: 1.2rem;
+                    margin-bottom: 10px;
+                }
+
+                span {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+
+    .reports-loading,
+    .reports-error {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        text-align: center;
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(131, 131, 131, 0.4);
+            border-top: 3px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #242424;
+            color: white;
+            border: 1px solid rgb(131, 131, 131, 0.4);
+            border-radius: 24px;
+            cursor: pointer;
+            font-weight: 500;
+
+            &:hover {
+                background-color: rgba(25, 64, 64, 0.4);
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .reports-container {
+        .dash-box2 {
+            .reports-controls {
+                flex-direction: column;
+                align-items: stretch;
+
+                .reports-stats {
+                    justify-content: space-around;
+                }
+
+                .filter-controls {
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .reports-container {
+        gap: 10px;
+
+        .dash-box2 {
+            gap: 20px;
+
+            .box-head {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .reports-controls {
+                padding: 15px;
+
+                .reports-stats {
+                    gap: 20px;
+                }
+            }
+        }
+
+        .reports-subcontainer {
+            margin: 10px;
+
+            .item-component {
+                .item1 {
+                    width: 100%;
+
+                    .request-header {
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+
+                    .request-details {
+                        flex-direction: column;
+                        gap: 10px;
+                        align-items: flex-start;
+
+                        .request-meta {
+                            align-items: flex-start;
+                        }
                     }
                 }
             }
