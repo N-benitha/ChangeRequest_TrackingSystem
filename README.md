@@ -1,5 +1,7 @@
 # Change Request Tracking System
+  ![alt banner](crts.png)
 
+## Overview
 A comprehensive full-stack web application for managing software change requests across development projects. Built with modern technologies and featuring role-based access control for efficient project management.
 
 > **Note**: This project consists of two separate repositories:
