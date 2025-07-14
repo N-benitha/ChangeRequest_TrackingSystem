@@ -3,7 +3,9 @@
   <img src="crts.png" alt="Centered Image"/>
 </p>
 
-![Static Badge](https://img.shields.io/badge/React-61DBFB?style=for-the-badge&logo=react&logoColor=61DBFB&labelColor=black) ![Static Badge](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&labelColor=black) ![Static Badge](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&labelColor=black)
+<p align="center">
+  ![Static Badge](https://img.shields.io/badge/React-61DBFB?style=for-the-badge&logo=react&logoColor=61DBFB&labelColor=black) ![Static Badge](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&labelColor=black) ![Static Badge](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&labelColor=black)
+</p>
 
 <p align="center">
   A comprehensive full-stack web application for managing software change requests across development projects. Built with modern technologies and featuring role-based access control for efficient project management.
