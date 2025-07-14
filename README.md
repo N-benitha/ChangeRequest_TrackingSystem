@@ -329,15 +329,13 @@ Backend: [backend](https://github.com/N-benitha/backend.git)
 ## 📝 License
 This project is licensed under the [MIT License](LICENSE).
 
-## 👨‍💻 Author
-
-Name: Benitha Ngunga
-Email: ngungabn03@gmail.com
-
 ## 🙏 Acknowledgments
 
 - **ALX Africa** - This project was developed as part of the ALX Software Engineering Program. Special thanks to ALX for providing world-class software engineering education and the opportunity to build real-world applications that solve practical problems.
 - **ALX Technical Mentors** - For guidance on best practices, code architecture, and professional development standards
+
+## 👨‍💻 Author
+**Benitha Ngunga** ngungabn03@gmail.com
 
 ## Contact
 For support or inquiries, do not hesitate to contact me here. [LinkedIn](https://www.linkedin.com/in/ngunga-benitha-26b43921b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
