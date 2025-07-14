@@ -1,5 +1,7 @@
 # Change Request Tracking System
-  ![alt banner](crts.png)
+<p align="center">
+  <img src="crts.png" alt="Centered Image" width="200"/>
+</p>
 
 A comprehensive full-stack web application for managing software change requests across development projects. Built with modern technologies and featuring role-based access control for efficient project management.
 
