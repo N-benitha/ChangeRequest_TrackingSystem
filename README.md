@@ -191,8 +191,8 @@ Password: admin123
 POST /auth/login          # User login
 POST /auth/logout         # User logout
 POST /auth/signup         # User registration
-GET  /auth/me            # Get current user
-POST /auth/refresh       # Refresh JWT token
+GET  /auth/me             # Get current user
+POST /auth/refresh        # Refresh JWT token
 ```
 ### Users (Admin only)
 ```
@@ -220,9 +220,11 @@ DELETE /change-request/:id               # Delete change request
 ```
 ### User-Project Assignment
 ```
-GET    /user-project/by-user/:userId     # Get projects assigned to user
+GET    /user-project/all                 # Get all projects assigned to all users
 POST   /user-project                     # Assign user to project
-DELETE /user-project                     # Remove user from project
+GET    /user-project/:id                 # Get projects assigned to a user
+PATCH  /user-project/:id                 # Update user-projects
+DELETE /user-project/:id                 # Remove user from project
 ```
 
 ## 🚀 Deployment
