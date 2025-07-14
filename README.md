@@ -246,7 +246,7 @@ npm run start:prod
 ## 🤝 Contributing
 ### For Frontend Repository (ChangeRequest_TrackingSystem)
 
-1. Fork the ChangeRequest_TrackingSystem repository
+1. Fork the [ChangeRequest_TrackingSystem](https://github.com/N-benitha/ChangeRequest_TrackingSystem.git) repository
 2. Create a feature branch: git checkout -b feature/frontend-feature
 3. Make your changes and commit: git commit -m 'Add frontend feature'
 4. Push to branch: git push origin feature/frontend-feature
@@ -254,7 +254,7 @@ npm run start:prod
 
 ### For Backend Repository
 
-1. Fork the backend repository
+1. Fork the [backend](https://github.com/N-benitha/backend.git) repository
 2. Create a feature branch: git checkout -b feature/backend-feature
 3. Make your changes and commit: git commit -m 'Add backend feature'
 4. Push to branch: git push origin feature/backend-feature
