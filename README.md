@@ -1,10 +1,10 @@
 # Change Request Tracking System
   ![alt banner](crts.png)
 
-Like any software team, we’ve all felt the frustration of chasing down change requests, lost email threads, and unclear deployment histories. I experienced it firsthand while working on various projects, where keeping track of who requested what, when it was deployed, and what issues followed could become chaotic quickly. That challenge led me to build the Change Request Tracking System (CRTS), a comprehensive, full-stack web application designed to centralize and streamline the management of software change requests across development projects. In environments where accountability and traceability are crucial for quality delivery, CRTS has your back. It keeps projects organized, teams informed, and change management transparent, because when systems work smoothly, so do people.
+A comprehensive full-stack web application for managing software change requests across development projects. Built with modern technologies and featuring role-based access control for efficient project management.
 
 ## Overview
-A comprehensive full-stack web application for managing software change requests across development projects. Built with modern technologies and featuring role-based access control for efficient project management.
+Like any software team, we’ve all felt the frustration of chasing down change requests, lost email threads, and unclear deployment histories. I experienced it firsthand while working on various projects, where keeping track of who requested what, when it was deployed, and what issues followed could become chaotic quickly. That challenge led me to build the Change Request Tracking System (CRTS), a comprehensive, full-stack web application designed to centralize and streamline the management of software change requests across development projects. In environments where accountability and traceability are crucial for quality delivery, CRTS has your back. It keeps projects organized, teams informed, and change management transparent, because when systems work smoothly, so do people.
 
 > **Note**: This project consists of two separate repositories:
 > - **Frontend**: [ChangeRequest_TrackingSystem](https://github.com/N-benitha/ChangeRequest_TrackingSystem.git)
@@ -326,9 +326,6 @@ export default api;
 Frontend: [ChangeRequest_TrackingSystem](https://github.com/N-benitha/ChangeRequest_TrackingSystem.git)
 Backend: [backend](https://github.com/N-benitha/backend.git)
 
-## 📝 License
-This project is licensed under the [MIT License](LICENSE).
-
 ## 🙏 Acknowledgments
 
 - **ALX Africa** - This project was developed as part of the ALX Software Engineering Program. Special thanks to ALX for providing world-class software engineering education and the opportunity to build real-world applications that solve practical problems.
@@ -336,6 +333,9 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 **Benitha Ngunga** ngungabn03@gmail.com
+
+## 📝 License
+This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 For support or inquiries, do not hesitate to contact me here. [LinkedIn](https://www.linkedin.com/in/ngunga-benitha-26b43921b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
