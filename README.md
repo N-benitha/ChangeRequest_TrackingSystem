@@ -350,7 +350,7 @@ Backend: [backend](https://github.com/N-benitha/backend.git)
 This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
-For support or inquiries, do not hesitate to contact me here. [LinkedIn](https://www.linkedin.com/in/ngunga-benitha-26b43921b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+For support or inquiries, do not hesitate to contact me [here](https://www.linkedin.com/in/ngunga-benitha-26b43921b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app).
 
 ⭐ If you found this project helpful, please give both repositories a star!
 
