@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  ![Static Badge](https://img.shields.io/badge/React-61DBFB?style=for-the-badge&logo=react&logoColor=61DBFB&labelColor=black) ![Static Badge](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&labelColor=black) ![Static Badge](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&labelColor=black)
+![Static Badge](https://img.shields.io/badge/React-61DBFB?style=for-the-badge&logo=react&logoColor=61DBFB&labelColor=black)
 </p>
 
 <p align="center">
