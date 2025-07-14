@@ -1,6 +1,6 @@
-# Change Request Tracking System
 <p align="center">
   <img src="crts.png" alt="Centered Image"/>
+  # Change Request Tracking System
 </p>
 
 <p align="center">
