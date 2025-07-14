@@ -128,3 +128,220 @@ npm run dev
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:3000
 - API Health Check: http://localhost:3000/auth/me
+
+🎯 Usage
+Getting Started
+
+### 1. Start Both Servers
+```bash
+# Terminal 1 - Backend
+cd backend && npm run start:dev
+
+# Terminal 2 - Frontend
+cd ChangeRequest_TrackingSystem && npm run dev
+```
+
+### 2. Default Admin Account
+```
+Email: admin@example.com
+Password: admin123
+```
+### 3. Create Your First Project
+
+- Log in as admin
+- Navigate to Projects → Add Project
+- Fill in project details
+
+
+### 4. Add Team Members
+
+- Go to Users → Add User
+- Assign appropriate roles
+- Assign users to projects
+
+### Workflow Example
+
+1. Admin creates projects and assigns developers
+2. The developer submits change requests for assigned projects
+3. Approver reviews and approves/rejects requests
+4. All users can view reports and track progress
+
+## 🔒 Authentication & Security
+
+- JWT Tokens stored in HTTP-only cookies
+- Password Hashing using bcrypt with salt rounds
+- Role-Based Authorization with custom NestJS guards
+- Input Validation on all endpoints using DTOs
+- CORS Protection configured for frontend domain
+- Environment Variables for all sensitive data
+
+## 📊 API Endpoints
+### Authentication
+```
+POST /auth/login          # User login
+POST /auth/logout         # User logout
+POST /auth/signup         # User registration
+GET  /auth/me            # Get current user
+POST /auth/refresh       # Refresh JWT token
+```
+### Users (Admin only)
+```
+GET    /users            # Get all users
+POST   /users/create     # Create new user
+GET    /users/:id        # Get user by ID
+PATCH  /users/:id        # Update user
+DELETE /users/:id        # Delete user
+```
+### Projects
+```
+GET    /project/all-projects     # Get all projects
+POST   /project/create           # Create project
+GET    /project/:id              # Get project by ID
+PATCH  /project/:id              # Update project
+DELETE /project/:id              # Delete project
+```
+### Change Requests
+```
+GET    /change-request/all-users         # Get all change requests
+POST   /change-request/create            # Create change request
+GET    /change-request/query             # Query change requests with filters
+PATCH  /change-request/:id               # Update change request status
+DELETE /change-request/:id               # Delete change request
+```
+### User-Project Assignment
+```
+GET    /user-project/by-user/:userId     # Get projects assigned to user
+POST   /user-project                     # Assign user to project
+DELETE /user-project                     # Remove user from project
+```
+
+## 🚀 Deployment
+### Production Build
+#### Frontend (ChangeRequest_TrackingSystem):
+```bash
+cd ChangeRequest_TrackingSystem
+npm run build
+# Deploy dist/ folder to your hosting service
+```
+#### Backend:
+```bash
+cd backend
+npm run build
+npm run start:prod
+```
+### Environment Setup for Production
+
+- Set NODE_ENV=production in backend
+- Update VITE_API_URL in frontend to production API URL
+- Use production database credentials
+- Configure proper CORS origins
+- Set secure JWT secrets (minimum 32 characters)
+
+### Deployment Options
+
+- Frontend: Vercel, Netlify, GitHub Pages
+- Backend: Heroku, DigitalOcean, AWS, Railway
+- Database: PostgreSQL on cloud providers
+
+## 🤝 Contributing
+### For Frontend Repository (ChangeRequest_TrackingSystem)
+
+1. Fork the ChangeRequest_TrackingSystem repository
+2. Create a feature branch: git checkout -b feature/frontend-feature
+3. Make your changes and commit: git commit -m 'Add frontend feature'
+4. Push to branch: git push origin feature/frontend-feature
+5. Open a Pull Request
+
+### For Backend Repository
+
+1. Fork the backend repository
+2. Create a feature branch: git checkout -b feature/backend-feature
+3. Make your changes and commit: git commit -m 'Add backend feature'
+4. Push to branch: git push origin feature/backend-feature
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow TypeScript best practices in both repositories
+- Maintain consistent code formatting (Prettier/ESLint)
+- Write meaningful commit messages
+- Test your changes locally with both the frontend and backend running
+- Update documentation as needed
+
+## 🐛 Common Issues & Solutions
+### CORS Issues
+**Problem:** Frontend can't connect to backend
+**Solution:**
+```typescript
+// In backend main.ts
+app.enableCors({
+  origin: 'http://localhost:5173', // or your frontend URL
+  credentials: true
+});
+```
+### Database Connection Issues
+```bash
+# Check PostgreSQL service
+sudo service postgresql status
+
+# Verify database exists
+psql -U username -d change_request_db
+```
+### Port Already in Use
+```bash
+# Kill process on port 3000 (backend)
+lsof -ti:3000 | xargs kill -9
+
+# Kill process on port 5173 (frontend)
+lsof -ti:5173 | xargs kill -9
+```
+### Authentication Issues
+
+- Clear browser cookies and localStorage
+- Check JWT secret consistency in backend .env
+- Verify API_URL in frontend environment
+
+### Module Not Found Errors
+```bash
+# Clear node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+```
+## 📝 API Configuration
+### Frontend API Setup
+The frontend uses Axios with base configuration:
+```typescript
+// src/api/axios.ts
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+  withCredentials: true,
+});
+
+export default api;
+```
+## 🔗 Repository Links
+
+Frontend: [ChangeRequest_TrackingSystem](https://github.com/N-benitha/ChangeRequest_TrackingSystem.git)
+Backend: [backend](https://github.com/N-benitha/backend.git)
+
+## 📝 License
+This project is licensed under the [MIT License](LICENSE).
+
+## 👨‍💻 Author
+
+Name: Benitha Ngunga
+Email: ngungabn03@gmail.com
+
+## 🙏 Acknowledgments
+
+- **ALX Africa** - This project was developed as part of the ALX Software Engineering Program. Special thanks to ALX for providing world-class software engineering education and the opportunity to build real-world applications that solve practical problems.
+- **ALX Technical Mentors** - For guidance on best practices, code architecture, and professional development standards
+
+## Contact
+For support or inquiries, do not hesitate to contact me here. [LinkedIn](https://www.linkedin.com/in/ngunga-benitha-26b43921b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+
+⭐ If you found this project helpful, please give both repositories a star!
+
+*This project represents the culmination of skills learned through the ALX Software Engineering Program, demonstrating proficiency in full-stack development, database design, authentication systems, and modern web technologies.*
