@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import './Pending.css'
-import api from '../api/axios';
+import './css/Pending.css'
+import api from '../../../api/axios'
 
 /**
  * Component for displaying and managing pending change requests.

@@ -1,27 +1,33 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import SignUp from './Components/SignUp'
-import DeveloperDash from './Components/DeveloperDash'
-import AdminDash from './Components/AdminDash'
-import ApproverDash from './Components/ApproverDash'
 import LogIn from './Components/LogIn'
+import SignUp from './Components/SignUp'
+
 import Dashboards from './Components/Dashboards'
-import ChangeRequestHistory from './Components/ChangeRequestHistory'
-import ActionsDash from './Components/ActionsDash'
-import UserProjects from './Components/UserProjects'
-import Pending from './Components/Pending'
-import Approved from './Components/Approved'
-import RolledBack from './Components/RolledBack'
-import UserInformation from './Components/UserInformation'
-import Users from './Components/Users'
-import AssignProjects from './Components/AssignProjects'
-import ProjectsDash from './Components/ProjectsDash'
-import AllProjects from './Components/AllProjects'
-import ProjectInfo from './Components/ProjectInfo'
-import AddUser from './Components/AddUser'
-import AddProject from './Components/AddProject'
-import ProjectUpdate from './Components/ProjectUpdate'
-import Reports from './Components/Reports'
+
+import AdminDash from './Components/Dashboards/Admin/AdminDash'
+import AddUser from './Components/Dashboards/Admin/AddUser'
+import AssignProjects from './Components/Dashboards/Admin//AssignProjects'
+import UserInformation from './Components/Dashboards/Admin/UserInformation'
+import Users from './Components/Dashboards/Admin//Users'
+
+import DeveloperDash from './Components/Dashboards/Developer/DeveloperDash'
+import ActionsDash from './Components/Dashboards/Developer/ActionsDash'
+import ChangeRequestHistory from './Components/Dashboards/Developer/ChangeRequestHistory'
+import UserProjects from './Components/Dashboards/Developer/UserProjects'
+
+import ApproverDash from './Components/Dashboards/Approver/ApproverDash'
+import Pending from './Components/Dashboards/Approver/Pending'
+import Approved from './Components/Dashboards/Approver/Approved'
+import RolledBack from './Components/Dashboards/Approver/RolledBack'
+
+import ProjectsDash from './Components/Dashboards/Projects/ProjectsDash'
+import AllProjects from './Components/Dashboards/Projects/AllProjects'
+import ProjectInfo from './Components/Dashboards/Projects/ProjectInfo'
+import AddProject from './Components/Dashboards/Projects/AddProject'
+import ProjectUpdate from './Components/Dashboards/Projects/ProjectUpdate'
+
+import Reports from './Components/Dashboards/Reports/Reports'
 
 /**
  * The main application component that sets up the routing structure for the Change Request Tracking System.

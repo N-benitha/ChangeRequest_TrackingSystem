@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import './ApproverDash.css'
-import api from '../api/axios';
+import './css/ApproverDash.css'
+import api from '../../../api/axios'
 
 /**
  * ApproverDash component displays the dashboard for users with approver privileges.

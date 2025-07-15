@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import './AddUser.css'
+import './css/AddUser.css'
 import axios from 'axios';
-import api from '../api/axios';
+import api from '../../../api/axios'
 import { useNavigate } from 'react-router-dom';
 
 /**

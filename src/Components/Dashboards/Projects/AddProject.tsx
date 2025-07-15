@@ -1,8 +1,8 @@
 import axios from 'axios';
-import api from '../api/axios';
+import api from '../../../api/axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import './AddProject.css'
+import './css/AddProject.css'
 
 /**
  * AddProject component provides a form for creating a new project.

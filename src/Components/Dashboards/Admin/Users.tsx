@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import './Users.css'
+import './css/Users.css'
 import { useNavigate } from 'react-router-dom'
-import api from '../api/axios'
+import api from '../../../api/axios'
 
 /**
  * Users component displays a list of users fetched from the backend API.

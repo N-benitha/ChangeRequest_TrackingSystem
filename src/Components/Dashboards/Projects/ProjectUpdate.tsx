@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './ProjectUpdate.css'
+import './css/ProjectUpdate.css'
 import { useNavigate, useParams } from 'react-router-dom';
-import api from '../api/axios';
+import api from '../../../api/axios'
 
 /**
  * ProjectUpdate is a component that allows users to update the details of an existing project.

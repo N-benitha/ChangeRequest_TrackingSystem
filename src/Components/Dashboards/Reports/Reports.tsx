@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './Reports.css'
+import './css/Reports.css'
 import { Link } from 'react-router-dom'
-import api from '../api/axios';
+import api from '../../../api/axios'
 
 interface User {
   id: string;

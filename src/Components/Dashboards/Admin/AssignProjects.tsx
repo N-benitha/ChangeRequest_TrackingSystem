@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import './AssignProjects.css'
+import './css/AssignProjects.css'
 import { useParams } from 'react-router-dom'
-import api from '../api/axios'
+import api from '../../../api/axios'
 
 /**
  * AssignProjects is a React functional component for managing project assignments for a specific user.

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './UserProjects.css'
+import './css/UserProjects.css'
 import { useNavigate, useParams } from 'react-router-dom';
-import api from '../api/axios';
+import api from '../../../api/axios'
 
 /**
  * Displays a list of projects assigned to the currently authenticated user.

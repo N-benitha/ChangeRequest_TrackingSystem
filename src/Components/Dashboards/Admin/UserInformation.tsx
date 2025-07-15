@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './UserInformation.css'
+import './css/UserInformation.css'
 import { useNavigate } from 'react-router-dom';
-import api from '../api/axios';
+import api from '../../../api/axios';
 
 /**
  * Displays and allows editing of a user's information.

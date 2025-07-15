@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './AllProjects.css'
+import './css/AllProjects.css'
 import { useNavigate } from 'react-router-dom';
-import api from '../api/axios';
+import api from '../../../api/axios'
 
 /**
  * Displays a list of all projects, allowing users to view, add, update, or remove projects.

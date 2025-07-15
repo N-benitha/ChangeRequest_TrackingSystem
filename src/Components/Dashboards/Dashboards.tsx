@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
-import './Dashboards.css'
+import './css/Dashboards.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
-import api from '../api/axios';
+import api from '../../api/axios'
 
 /**
  * Dashboards component responsible for rendering the dashboard navigation and layout

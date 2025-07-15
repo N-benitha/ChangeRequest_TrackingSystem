@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import './DeveloperDash.css'
+import './css/DeveloperDash.css'
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
-import api from '../api/axios';
+import api from '../../../api/axios'
 
 /**
  * DeveloperDash component serves as the main dashboard for developers.

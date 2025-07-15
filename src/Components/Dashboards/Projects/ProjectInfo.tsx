@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
-import './ProjectInfo.css'
+import './css/ProjectInfo.css'
 import { useParams } from 'react-router-dom'
-import api from '../api/axios'
+import api from '../../../api/axios'
 
 /**
  * Displays detailed information about a specific project, including its change requests.

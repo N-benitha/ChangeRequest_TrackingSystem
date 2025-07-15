@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons'
-import './ChangeRequestHistory.css'
-import api from '../api/axios'
+import './css/ChangeRequestHistory.css'
+import api from '../../../api/axios'
 import { useParams } from 'react-router-dom'
 
 /**

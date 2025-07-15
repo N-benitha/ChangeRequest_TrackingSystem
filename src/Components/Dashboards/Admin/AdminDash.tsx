@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import './AdminDash.css'
-import api from '../api/axios'
+import './css/AdminDash.css'
+import api from '../../../api/axios'
 
 /**
  * AdminDash component for the admin dashboard.

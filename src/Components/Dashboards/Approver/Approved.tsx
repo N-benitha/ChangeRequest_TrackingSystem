@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import './Approved.css'
-import api from '../api/axios';
+import './css/Approved.css'
+import api from '../../../api/axios'
 
 /**
  * Approved component displays a list of approved change requests and allows marking them as deployed.

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import './RolledBack.css'
-import api from '../api/axios';
+import './css/RolledBack.css'
+import api from '../../../api/axios'
 
 /**
  * RolledBack component displays a list of change requests that have been rolled back.

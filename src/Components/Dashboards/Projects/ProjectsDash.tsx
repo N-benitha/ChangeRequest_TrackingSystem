@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate, useParams, useLocation } from 'react-router-dom'
-import './ProjectsDash.css'
-import api from '../api/axios';
+import './css/ProjectsDash.css'
+import api from '../../../api/axios'
 
 /**
  * ProjectsDash component serves as the main dashboard for managing and viewing projects.

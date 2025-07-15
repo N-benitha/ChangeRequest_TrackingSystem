@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import './ActionsDash.css'
-import api from '../api/axios';
+import './css/ActionsDash.css'
+import api from '../../../api/axios'
 import { useParams } from 'react-router-dom';
 
 /**
