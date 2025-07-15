@@ -51,6 +51,7 @@ Like any software team, we’ve all felt the frustration of chasing down change 
 ### Backend Repository: [backend](https://github.com/N-benitha/backend.git)
 - **NestJS** with TypeScript
 - **PostgreSQL** database
+- **TypeORM** for database operations
 - **JWT Authentication** with HTTP-only cookies
 - **bcrypt** for password hashing
 - **Role-based guards** for authorization
@@ -75,8 +76,27 @@ git clone https://github.com/yourusername/ChangeRequest_TrackingSystem.git
 # Clone the backend repository
 git clone https://github.com/yourusername/backend.git
 ```
+### 2. PostgreSQL Database Setup
 
-### 2. Backend Setup
+```bash
+# Start PostgreSQL service
+sudo service postgresql start
+
+# Login to PostgreSQL
+sudo -u postgres psql
+
+# Create database
+CREATE DATABASE crts IF NOT EXISTS;
+
+# Create user (optional, or use existing postgres user)
+CREATE USER crts_user IF NOT EXISTS WITH PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE crts TO crts_user;
+
+# Exit PostgreSQL
+\q
+```
+
+### 3. Backend Setup
 
 ```bash
 # Navigate to backend repository
@@ -85,40 +105,19 @@ cd backend
 # Install dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your database credentials and JWT secret
+# Database configuration is already set in typeorm.config.ts
+# Make sure your PostgreSQL credentials match:
+# - host: localhost
+# - port: 5432
+# - username: postgres
+# - password: admin
+# - database: crts
 
-# Run database migrations (if applicable)
-npm run migration:run
-
-# Start the backend server
+# Start the backend server (TypeORM will create tables automatically)
 npm run start:dev
 ```
 
-### Backend Environment Variables (.env file):
-
-```env
-# Database
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
-DB_DATABASE=change_request_db
-
-# JWT
-JWT_SECRET=your_super_secret_jwt_key
-JWT_EXPIRES_IN=24h
-
-# Application
-PORT=3000
-NODE_ENV=development
-
-# CORS (for frontend)
-FRONTEND_URL=http://localhost:5173
-```
-
-### 3. Frontend Setup
+### 4. Frontend Setup
 ```bash
 # Navigate to frontend repository (in a new terminal)
 cd ChangeRequest_TrackingSystem
@@ -135,9 +134,9 @@ npm run dev
 
 ### 4. Verify Setup
 
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:3000
-- API Health Check: http://localhost:3000/auth/me
+- Frontend: <u>http://localhost:5173</u>
+- Backend API: <u>http://localhost:3000</u>
+- API Health Check: <u>http://localhost:3000/auth/me</u>
 
 🎯 Usage
 Getting Started
@@ -151,17 +150,74 @@ cd backend && npm run start:dev
 cd ChangeRequest_TrackingSystem && npm run dev
 ```
 
-### 2. Default Admin Account
+### 2. Initialize Database with Default Users
+Since the database starts empty, you'll need to create users through the signup endpoint or manually insert them. Here are sample users you can create for testing:
+**Admin User:**
 ```
-Email: admin@example.com
+Username: admin
+Email: admin@crts.com
 Password: admin123
+User Type: ADMIN
 ```
+
+**Approver User:**
+```
+Username: approver
+Email: approver@crts.com
+Password: approver123
+User Type: APPROVER
+```
+
+**Developer User:**
+```
+Username: developer
+Email: developer@crts.com
+Password: developer123
+User Type: DEVELOPER
+```
+
+#### Option 1: Create via Signup Page
+
+1. Go to <u>http://localhost:5173/signup</u>
+2. Register the admin user first
+3. Login as admin and create other users through the admin panel
+
+#### Option 2: Create via API (using curl or Postman)
+```bash
+# Create Admin user
+curl -X POST http://localhost:3000/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "email": "admin@crts.com",
+    "password": "admin123"
+  }'
+
+# Create Approver user
+curl -X POST http://localhost:3000/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "approver",
+    "email": "approver@crts.com",
+    "password": "approver123"
+  }'
+
+# Create Developer user
+curl -X POST http://localhost:3000/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "developer",
+    "email": "developer@crts.com",
+    "password": "developer123"
+  }'
+```
+> **Note**: You may need to update user types in the database manually because signup doesn't allow role selection, or modify the signup endpoint to accept user_type during registration.
+
 ### 3. Create Your First Project
 
 - Log in as admin
 - Navigate to Projects → Add Project
 - Fill in project details
-
 
 ### 4. Add Team Members
 
@@ -172,7 +228,7 @@ Password: admin123
 ### Workflow Example
 
 1. Admin creates projects and assigns developers
-2. The developer submits change requests for assigned projects
+2. Developer submits change requests for assigned projects
 3. Approver reviews and approves/rejects requests
 4. All users can view reports and track progress
 
@@ -183,7 +239,7 @@ Password: admin123
 - Role-Based Authorization with custom NestJS guards
 - Input Validation on all endpoints using DTOs
 - CORS Protection configured for frontend domain
-- Environment Variables for all sensitive data
+- TypeORM with automatic schema synchronization (development only)
 
 ## 📊 API Endpoints
 ### Authentication
@@ -224,7 +280,7 @@ GET    /user-project/all                 # Get all projects assigned to all user
 POST   /user-project                     # Assign user to project
 GET    /user-project/:id                 # Get projects assigned to a user
 PATCH  /user-project/:id                 # Update user-projects
-DELETE /user-project/:id                 # Remove user from project
+DELETE /user-project/:id                 # Remove user-project
 ```
 
 ## 🚀 Deployment
@@ -242,12 +298,42 @@ npm run build
 npm run start:prod
 ```
 ### Environment Setup for Production
+**Important:** For production, you should:
+1. Create a proper `.env` file in the backend:
+```.env
+# Database
+DB_HOST=your_production_host
+DB_PORT=5432
+DB_USERNAME=your_production_user
+DB_PASSWORD=your_production_password
+DB_DATABASE=crts
 
-- Set NODE_ENV=production in backend
-- Update VITE_API_URL in frontend to production API URL
-- Use production database credentials
-- Configure proper CORS origins
-- Set secure JWT secrets (minimum 32 characters)
+# JWT
+JWT_SECRET=your_super_secret_jwt_key_minimum_32_characters
+JWT_EXPIRES_IN=24h
+
+# Application
+PORT=3000
+NODE_ENV=production
+
+# CORS (for frontend)
+FRONTEND_URL=https://your-frontend-domain.com
+```
+2. Update `typeorm.config.ts` to use environment variables:
+```typescript
+export const typeOrmConfig: TypeOrmModuleOptions = {
+  type: 'postgres',
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT) || 5432,
+  username: process.env.DB_USERNAME || 'postgres',
+  password: process.env.DB_PASSWORD || 'admin',
+  database: process.env.DB_DATABASE || 'crts',
+  entities: [User, Project, ChangeRequest, UserProject],
+  synchronize: process.env.NODE_ENV !== 'production', // NEVER use in production
+  logging: process.env.NODE_ENV === 'development',
+}
+```
+3. Set `synchronize: false` in production and use migrations instead
 
 ### Deployment Options
 
@@ -297,8 +383,19 @@ app.enableCors({
 sudo service postgresql status
 
 # Verify database exists
-psql -U username -d change_request_db
+sudo -u postgres psql -c "\l" | grep crts
+
+# Check if tables are created
+sudo -u postgres psql -d crts -c "\dt"
 ```
+### TypeORM Synchronization Issues
+```bash
+# If tables aren't created automatically, restart the backend
+npm run start:dev
+
+# Check the console for TypeORM logs showing table creation
+```
+
 ### Port Already in Use
 ```bash
 # Kill process on port 3000 (backend)
@@ -310,7 +407,7 @@ lsof -ti:5173 | xargs kill -9
 ### Authentication Issues
 
 - Clear browser cookies and localStorage
-- Check JWT secret consistency in backend .env
+- Check database for user records
 - Verify API_URL in frontend environment
 
 ### Module Not Found Errors
@@ -344,7 +441,7 @@ Backend: [backend](https://github.com/N-benitha/backend.git)
 - **ALX Technical Mentors** - For guidance on best practices, code architecture, and professional development standards
 
 ## 👨‍💻 Author
-**Benitha Ngunga** ngungabn03@gmail.com
+**Benitha Ngunga** - ngungabn03@gmail.com
 
 ## 📝 License
 This project is licensed under the [MIT License](LICENSE).
