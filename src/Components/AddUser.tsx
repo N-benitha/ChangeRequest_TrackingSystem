@@ -4,6 +4,24 @@ import axios from 'axios';
 import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * AddUser is a component that renders a form for creating a new user.
+ * 
+ * The form collects the following user information:
+ * - Username
+ * - Email
+ * - Password
+ * - User Type (Developer, Approver, Admin)
+ * - Status (Active, Idle)
+ * 
+ * On submission, the form validates that all fields are filled. If validation passes,
+ * it sends a POST request to the '/users/create' endpoint to create the user.
+ * 
+ * Displays error messages if validation fails or if the API request encounters an error.
+ * 
+ * @component
+ * @returns The rendered AddUser form component.
+ */
 const AddUser = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -13,8 +31,14 @@ const AddUser = () => {
     const [userStatus, setUserStatus] = useState('');
     const navigate = useNavigate();
 
+    /**
+     * Handles form submission for creating a new user
+     * Validates input fields and makes API call to create user
+     * @param e - Form submission event
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Client-side validation
         if (!name || !email || !password || !userType || !userStatus) {
             setError('Please fill in all fields');
             return;
@@ -22,22 +46,24 @@ const AddUser = () => {
         setError('');
 
         try {
-            await api.post(
-            `/users/create`,
-            {
-                username: name,
-                email: email,
-                password: password,
-                user_type: userType,
-                status: userStatus
-            });
-
-            setName('');
-            setEmail('');
-            setPassword('');
-            setUserType('');
-            setUserStatus('');
-            alert("User Added");
+          // Create new user
+          await api.post(
+          `/users/create`,
+          {
+              username: name,
+              email: email,
+              password: password,
+              user_type: userType,
+              status: userStatus
+          });
+          
+          // Clear fields
+          setName('');
+          setEmail('');
+          setPassword('');
+          setUserType('');
+          setUserStatus('');
+          alert("User Added");
             
         } catch (error) {
             setError(error)

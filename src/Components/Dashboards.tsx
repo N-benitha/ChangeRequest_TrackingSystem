@@ -5,6 +5,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import api from '../api/axios';
 
+/**
+ * Dashboards component responsible for rendering the dashboard navigation and layout
+ * based on the current user's type. Fetches the current user information on mount
+ * and conditionally displays navigation links for ADMIN, APPROVER, and DEVELOPER user types.
+ * Shows a loading indicator while fetching user data and a message for users without navigation access.
+ *
+ * @component
+ *
+ * @returns The rendered dashboard layout with navigation links appropriate to the user type.
+ *
+ */
 const Dashboards = () => {
   interface User {
     id: string;
@@ -17,6 +28,7 @@ const Dashboards = () => {
   const [userType, setUserType] = useState<string>('USER');
   const [loading, setLoading] = useState<boolean>(true);
 
+  // Fetch user information to determine which navigation to show
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
@@ -57,7 +69,7 @@ const Dashboards = () => {
         </div>
         <h2>{userType}</h2>
         
-        {/* Only show navigation components for ADMIN users */}
+        {/* Navigation components for ADMIN users */}
         {userType === 'ADMIN' && (
           <div className="dash-components">
             <div className="comp1">
@@ -72,7 +84,7 @@ const Dashboards = () => {
           </div>
         )}
 
-        {/* Optional: Show different navigation for other user types */}
+        {/* Navigation for other user types */}
         {userType === 'APPROVER' && (
           <div className="dash-components">
             {/* <div className="comp1">
@@ -95,7 +107,7 @@ const Dashboards = () => {
           </div>
         )}
 
-        {/* Show message for users without navigation access */}
+        {/* Message for users without navigation access */}
         {!['ADMIN', 'APPROVER', 'DEVELOPER'].includes(userType) && (
           <div className="no-access">
             <p>No navigation available for your user type.</p>

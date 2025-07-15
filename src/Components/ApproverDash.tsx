@@ -3,6 +3,17 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import './ApproverDash.css'
 import api from '../api/axios';
 
+/**
+ * ApproverDash component displays the dashboard for users with approver privileges.
+ * 
+ * - Provides navigation between different change request status views (Pending, Approved, Rolled back)
+ * - Displays current user information and logout functionality
+ * - Serves as a layout component with nested routing for approver-specific views
+ * - Handles user authentication state and redirects on logout
+ * 
+ * @component
+ * @returns The rendered Approver dashboard component.
+ */
 const ApproverDash = () => {
 
   interface User {
@@ -17,9 +28,11 @@ const ApproverDash = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Controls visibility of logout dropdown menu
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Fetch current user information on component mount to display in header
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -39,10 +52,16 @@ const ApproverDash = () => {
     fetchUser();
   }, []);
 
+  /**
+   * Toggle the logout dropdown menu visibility
+   */
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  /**
+   * Handle user logout - clear session and redirect to login page
+   */
   const handleLogout = async () => {
     try {
       await api.post('/auth/logout');

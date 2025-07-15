@@ -5,6 +5,18 @@ import './ChangeRequestHistory.css'
 import api from '../api/axios'
 import { useParams } from 'react-router-dom'
 
+/**
+ * Displays the history of change requests for a specific project and user.
+ *
+ *  * This component fetches the current authenticated user and retrieves all change requests
+ * associated with the user and the project specified in the URL parameters. It displays
+ * a summary of the number of change requests and lists each request with its type, date,
+ * description, and status.
+ * 
+ * @component
+ * @returns The rendered change request history UI.
+ *
+ */
 const ChangeRequestHistory = () => {
   interface User {
     id: string;
@@ -36,9 +48,11 @@ const ChangeRequestHistory = () => {
 
   const { id: projectId } = useParams();
 
+  // Fetch user authentication and change requests on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // First get current user to ensure authentication and get userId
         const userInfo = await api.get(`/auth/me`);
         const currentUser = userInfo.data.user;
         setUser(currentUser);
@@ -48,6 +62,7 @@ const ChangeRequestHistory = () => {
 
         console.log(`Fetching change requests for userId: ${currentUser.id} on projectId: ${projectId}`);
         
+        // Query change requests filtered by both userId and projectId
         const response = await api.get(`/change-request/query?userId=${currentUser.id}&projectId=${projectId}`);
         console.log('Change requests response:', response.data);
         
@@ -74,6 +89,7 @@ const ChangeRequestHistory = () => {
               <span><FontAwesomeIcon icon={faClockRotateLeft} style={{"margin": "5px"}}/> {changeRequests.length} change requests</span>
           </div>
 
+          {/* List of change requests or empty state */}
           <div className="content">
             {changeRequests.length > 0 ? (
               changeRequests.map((changeRequest, index) => (

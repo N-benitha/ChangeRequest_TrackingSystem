@@ -3,6 +3,18 @@ import './ProjectUpdate.css'
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 
+/**
+ * ProjectUpdate is a component that allows users to update the details of an existing project.
+ * 
+ * - Fetches project data based on the project ID from the URL parameters.
+ * - Displays a form pre-filled with the current project title and description.
+ * - Allows users to edit and submit updated project information.
+ * - Handles loading, error, and saving states, providing user feedback accordingly.
+ * - Navigates back to the projects list upon successful update or cancellation.
+ * 
+ * @component
+ * @returns The rendered component for updating a project.
+ */
 const ProjectUpdate = () => {
     interface Project {
         id: string;
@@ -18,7 +30,7 @@ const ProjectUpdate = () => {
     const [saving, setSaving] = useState(false);
     const navigate = useNavigate();
 
-    const { id: projectId } = useParams(); // ✅ Get id from URL parameters
+    const { id: projectId } = useParams(); // Get id from URL parameters
 
     useEffect(() => {
         if (!projectId) {
@@ -49,7 +61,8 @@ const ProjectUpdate = () => {
         fetchProject();
     }, [projectId]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    // Handling project submission
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         // Basic validation
@@ -93,7 +106,6 @@ const ProjectUpdate = () => {
         }
     }
 
-    // ✅ Fixed missing return statement
     if (loading) return <div className="loading">Loading project data...</div>;
 
     if (error && !project) {
@@ -130,7 +142,7 @@ const ProjectUpdate = () => {
                             type="text" 
                             className='project-text' 
                             placeholder='Enter new project title'
-                            value={projectTitle} // ✅ Added value prop for controlled input
+                            value={projectTitle} // Added value prop for controlled input
                             onChange={(e) => setProjectTitle(e.target.value)}
                             disabled={saving}
                             required

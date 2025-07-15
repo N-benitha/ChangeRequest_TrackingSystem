@@ -3,6 +3,17 @@ import './AllProjects.css'
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 
+/**
+ * Displays a list of all projects, allowing users to view, add, update, or remove projects.
+ *
+ * - Fetches project data from the backend API on mount.
+ * - Handles loading and error states.
+ * - Allows navigation to add, update, and project detail pages.
+ * - Provides UI controls for updating and removing individual projects.
+ * 
+ * @component
+ * @returns The rendered list of projects with management controls.
+ */
 const AllProjects = () => {
   interface Project {
     id: string;
@@ -15,6 +26,7 @@ const AllProjects = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
+  // Fetch all projects when component mounts
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -30,6 +42,7 @@ const AllProjects = () => {
     fetchProjects();
   }, []);
 
+  // Navigate to the add project form
   const handleAddProject = () => {
     try {
       console.log("Add Project button clicked!");
@@ -40,6 +53,10 @@ const AllProjects = () => {
     }
   };
 
+   /**
+   * Delete a project and update the local state
+   * @param id - The project ID to delete
+   */
   const handleRemove = async (id: string) => {
     try {
       await api.delete(`/project/${id}`);
@@ -51,6 +68,10 @@ const AllProjects = () => {
     }
   };
 
+  /**
+   * Navigate to project details page
+   * @param id - The project ID to view
+   */
   const handleProjectTitle = (id: string) => {
     try {
       navigate(`./project-info/${id}`);
@@ -59,6 +80,10 @@ const AllProjects = () => {
     }
   };
 
+   /**
+   * Navigate to project update form
+   * @param id - The project ID to update
+   */
   const handleUpdate = (id: string) => {
     try {
       navigate(`./project-update/${id}`);
@@ -67,8 +92,10 @@ const AllProjects = () => {
     }
   };
 
+  // Show loading state while fetching data
   if (loading) return <div>Loading...</div>;
 
+  // Show error state if fetch failed
   if (error) return <div className="error">Error: {error}</div>;
 
   return (
@@ -80,6 +107,7 @@ const AllProjects = () => {
         <span className='project-count'>{projects.length} Projects</span>
       </div>
 
+      {/* Projects list */}
       <div className="content">
         {projects.map((project) => (
           <div className="project" key={project.id}>
@@ -88,6 +116,7 @@ const AllProjects = () => {
             </div>
             <div className="project-type">
               <span className='info'>{project.description}</span>
+              {/* Action buttons for each project */}
               <div className="btns">
                 <button className='btn-update' onClick={() => handleUpdate(project.id)}>
                   Update

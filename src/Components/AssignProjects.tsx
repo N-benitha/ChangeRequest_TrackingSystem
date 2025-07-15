@@ -5,6 +5,18 @@ import './AssignProjects.css'
 import { useParams } from 'react-router-dom'
 import api from '../api/axios'
 
+/**
+ * AssignProjects is a React functional component for managing project assignments for a specific user.
+ * 
+ * - Displays user's change requests and currently assigned projects
+ * - Allows admins to assign new projects to the user from available projects
+ * - Allows admins to revoke projects currently assigned to the user
+ * - Filters projects intelligently to prevent duplicate assignments
+ * - Refreshes data after assignment/revocation operations
+ * 
+ * @component
+ * @returns The rendered AssignProjects component UI.
+ */
 const AssignProjects = () => {
   interface User {
     id: string;
@@ -37,13 +49,16 @@ const AssignProjects = () => {
   const [userProjects, setUserProjects] = useState<Project[]>([]);
   const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
   const [allProjects, setAllProjects] = useState<Project[]>([]);
+  // Form state for project assignment
   const [newProject, setNewProject] = useState('');
+  // Form state for project revocation
   const [oldProject, setOldProject] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const { id: userId} = useParams();
 
+  // Fetch all necessary data when component mounts or userId changes
   useEffect(() => {
     if (!userId) {
       setError("User doesn't exist");
@@ -55,10 +70,10 @@ const AssignProjects = () => {
     const fetchData = async () => {
       try {
         const [userRes, userProjectRes, changeRequestRes, allProjectsRes] = await Promise.all([
-          api.get(`/users/${userId}`),
-          api.get(`/user-project?userId=${userId}`),
-          api.get(`/change-request/query?userId=${userId}`),
-          api.get(`/project/all-projects`)
+          api.get(`/users/${userId}`), // Get user details
+          api.get(`/user-project?userId=${userId}`),  // Get user's assigned projects
+          api.get(`/change-request/query?userId=${userId}`), // Get user's change requests
+          api.get(`/project/all-projects`) // Get all available projects
         ]);
         
         setUser(userRes.data);
@@ -92,6 +107,10 @@ const AssignProjects = () => {
   // Filter projects for revocation (projects assigned to user)
   const assignedProjectsToRevoke = userProjects;
 
+  /**
+   * Handle assigning a new project to the user
+   * @param e - Form submission event
+   */
   const handleAssign = async (e) => {
     e.preventDefault();
     const foundProject = allProjects.find(p => p.title === newProject);
@@ -108,7 +127,7 @@ const AssignProjects = () => {
       });
 
       alert(`Project '${foundProject.title}' assigned successfully!`);
-      setNewProject('');
+      setNewProject(''); // Clear form
 
       // Refresh user's projects
       const res = await api.get(`/user-project?userId=${userId}`);
@@ -120,9 +139,14 @@ const AssignProjects = () => {
     }
   };
 
+  /**
+   * Handle revoking a project from the user
+   * @param e - Form submission event
+   */
   const handleRevoke = async (e) => {
     e.preventDefault();
     
+    // Find project in user's assigned projects (not all projects)
     const foundProject = userProjects.find(p => p.title === oldProject);
 
     if (!foundProject) {
@@ -159,6 +183,7 @@ const AssignProjects = () => {
     <div className='assign-container'>
       <div className="username">{user?.username}</div>
       
+      {/* User's change requests history */}
       <div className="user-projects">
         <h3>Change Requests</h3>
         <div className="project-content">

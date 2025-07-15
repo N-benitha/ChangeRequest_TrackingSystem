@@ -3,6 +3,17 @@ import './UserInformation.css'
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 
+/**
+ * Displays and allows editing of a user's information.
+ *
+ * Fetches user details based on the 'id' query parameter in the URL,
+ * displays the current username, user type, and status, and allows
+ * updating these fields. Submits changes via an API PATCH request.
+ *
+ * @component
+ * @returns The user information form component.
+ *
+ */
 const UserInformation = () => {
   interface User {
     id: string;
@@ -20,7 +31,9 @@ const UserInformation = () => {
   const [userStatus, setUserStatus] = useState('');
   const navigate = useNavigate();
 
+  // Fetches user data on component mount
   useEffect(() => {
+    // Extract user ID from URL query parameters
     const userId = new URLSearchParams(window.location.search).get('id');
 
     if (!userId) {
@@ -28,6 +41,9 @@ const UserInformation = () => {
       return;
     }
 
+    /**
+     * Fetch user details and populate form fields
+     */
     const fetchUser = async () => {
       try {
         const response = await api.get(`/users/${userId}`);
@@ -44,10 +60,17 @@ const UserInformation = () => {
     fetchUser();
   }, []);
 
+  /**
+   * Handle form submission and user data update
+   * Sends PATCH request with modified user information
+   * 
+   * @param e - Form submission event
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      // Update user
       await api.patch(
         `/users/${user?.id}`,
         {       
@@ -77,6 +100,7 @@ const UserInformation = () => {
             <input type="text" className='user-text' placeholder='New Name' onChange={(e) => setUserName(e.target.value)}/>
           </div>
 
+          {/* User role/type selection */}
           <div className="form-content-item">
             <p>User Type</p>
             <select name='change-type' className='change-type' value={userType} onChange={(e) => setUserType(e.target.value)}>
@@ -87,6 +111,7 @@ const UserInformation = () => {
             </select>
           </div>
 
+          {/* User status management */}
           <div className="form-content-item">
             <p>Status</p>
             <select name='change-status'className='change-status' value={userStatus} onChange={(e) => setUserStatus(e.target.value)}>

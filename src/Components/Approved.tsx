@@ -2,6 +2,18 @@ import React, { useEffect, useState } from 'react'
 import './Approved.css'
 import api from '../api/axios';
 
+/**
+ * Approved component displays a list of approved change requests and allows marking them as deployed.
+ *
+ * - Fetches approved change requests from the API on mount.
+ * - Displays each request with expandable details, including description, requester, project, and dates.
+ * - Allows users to mark a request as "Deployed", updating its status via the API.
+ * - Handles loading and error states, and visually indicates processing requests.
+ * - Uses local state to manage expanded/collapsed requests and processing status.
+ * 
+ * @component
+ * @returns The rendered Approved change requests UI.
+ */
 const Approved = () => {
   interface User {
     id: string;
@@ -39,14 +51,18 @@ const Approved = () => {
   const [changeRequests, setChangeRequests] = useState<ChangeRequests[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Track which requests are currently being processed to prevent double-clicks
   const [processingRequests, setProcessingRequests] = useState<Set<string>>(new Set());
+  // Track which request details are expanded in the UI
   const [expandedRequests, setExpandedRequests] = useState<Set<string>>(new Set());
 
+  // Fetch approved change requests on component mount
   useEffect(() => {
     const fetchApprovedRequests = async () => {
       try {
         const response = await api.get(`/change-request/query?status=${RequestStatus.APPROVED}`);
         
+        // Handle different possible API response formats
         if (Array.isArray(response.data)) {
           setChangeRequests(response.data);
         } else if (response.data.requests && Array.isArray(response.data.requests)) {
@@ -66,6 +82,10 @@ const Approved = () => {
     fetchApprovedRequests();
   }, []);
 
+  /**
+   * Toggle expand/collapse state for a specific request's details
+   * @param requestId - The ID of the request to toggle
+   */
   const toggleExpanded = (requestId: string) => {
     const newExpanded = new Set(expandedRequests);
     if (newExpanded.has(requestId)) {
@@ -76,13 +96,19 @@ const Approved = () => {
     setExpandedRequests(newExpanded);
   };
   
+  /**
+   * Mark an approved request as deployed and remove it from the list
+   * @param id - The ID of the request to mark as deployed
+   */
   const handleMarkAsDeployed = async (id: string) => {
     try {
+      // Add to processing set to disable button and show loading state
       setProcessingRequests(prev => new Set(prev).add(id));
       await api.patch(`/change-request/${id}`, {
         status: RequestStatus.DEPLOYED
       });
 
+      // Remove from approved list since it's now deployed
       setChangeRequests(prev => prev.filter(request => request.id !== id));
       console.log('Request marked as deployed successfully');
 
@@ -90,6 +116,7 @@ const Approved = () => {
       setError("Failed to mark as deployed");
       console.error("Error marking as deployed:", error);
     } finally {
+      // Remove from processing set regardless of success/failure
       setProcessingRequests(prev => {
         const newSet = new Set(prev);
         newSet.delete(id);
@@ -132,6 +159,7 @@ const Approved = () => {
             changeRequests.map((changeRequest, index) => (
               <div className="approved-feature" key={changeRequest.id || index}>
                 <div className="approved-feature-header">
+
                   <div className="approved-feature-title">
                     <div className="approved-feature-name">
                       <span className='approved-request-type'>{changeRequest.request_type}</span>
@@ -146,10 +174,11 @@ const Approved = () => {
                       </span>
                     </div>
                   </div>
+
                   <button 
                     className="approved-expand-btn" 
                     onClick={(e) => {
-                      e.stopPropagation();
+                      e.stopPropagation(); // Prevent event bubbling
                       toggleExpanded(changeRequest.id);
                     }}
                   >
@@ -157,6 +186,7 @@ const Approved = () => {
                   </button>
                 </div>
 
+                {/* Expandable details section */}
                 {expandedRequests.has(changeRequest.id) && (
                   <div className="approved-feature-details">
                     <div className="approved-feature-description">
@@ -208,6 +238,7 @@ const Approved = () => {
                 )}
               </div>
             )) : (
+              // Empty state when no approved requests exist
               <div className="approved-no-requests">
                 <p>No approved requests found.</p>
                 <span>Approved change requests will appear here.</span>

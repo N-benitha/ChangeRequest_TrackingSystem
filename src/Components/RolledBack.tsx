@@ -2,6 +2,18 @@ import React, { useEffect, useState } from 'react'
 import './RolledBack.css'
 import api from '../api/axios';
 
+/**
+ * RolledBack component displays a list of change requests that have been rolled back.
+ *
+ * - Fetches rolled back change requests from the API on mount.
+ * - Handles loading and error states.
+ * - Allows users to expand/collapse each request to view detailed information.
+ * - Displays request metadata, including status, project, user, and rollback reason.
+ * - Uses color-coded badges to indicate request status.
+ *
+ * @component
+ * @returns The rendered component displaying rolled back change requests.
+ */
 const RolledBack = () => {
   interface User {
     id: string;
@@ -43,6 +55,7 @@ const RolledBack = () => {
   const [error, setError] = useState<string | null>(null);
   const [expandedRequests, setExpandedRequests] = useState<Set<string>>(new Set());
 
+  // Fetch rolled back change requests
   useEffect(() => {
     const fetchRolledBackRequests = async () => {
       try {
@@ -113,7 +126,6 @@ const RolledBack = () => {
           <span className="request-count">{changeRequests.length} rolled back requests</span>
         </div>
 
-        {/* Using your existing .features container */}
         <div className="features">
           {changeRequests.length > 0 ? 
             changeRequests.map((changeRequest, index) => (

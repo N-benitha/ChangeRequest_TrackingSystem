@@ -3,6 +3,18 @@ import { Link, Outlet, useNavigate, useParams, useLocation } from 'react-router-
 import './ProjectsDash.css'
 import api from '../api/axios';
 
+/**
+ * ProjectsDash component serves as the main dashboard for managing and viewing projects.
+ * 
+ * - Fetches and displays the current authenticated user's information.
+ * - Handles project selection and navigation based on the current route and project ID.
+ * - Provides navigation links for projects and project information.
+ * - Manages user logout and dropdown menu for user actions.
+ * - Handles loading and error states for user and project data fetching.
+ * 
+ * @component
+ * @returns The rendered ProjectsDash component with navigation and outlet for nested routes.
+ */
 const ProjectsDash = () => {
   interface Project {
     id: string;
@@ -29,6 +41,7 @@ const ProjectsDash = () => {
 
   const {id: projectId} = useParams();
 
+  // Fetch user data
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -48,6 +61,10 @@ const ProjectsDash = () => {
     fetchUser();
   }, []);
 
+  /**
+   * Handle project-specific routing and data fetching
+   * Manages route validation and project data loading based on URL parameters
+   */
   useEffect(() => {
     // Check if current route needs a project ID
     const routesThatNeedProjectId = ['project-info', 'project-update'];
@@ -79,21 +96,30 @@ const ProjectsDash = () => {
         } catch (error) {
           setError("Failed to fetch project");
           console.log(error);
+          // Navigate back to projects list on fetch failure
           navigate('./');
         }
       };
 
       fetchProject();
     } else {
+      // Clear project state when no project ID is present
       setProject(null);
       setProjectTitle('');
     }
   }, [projectId, navigate, location.pathname]);
   
+  /**
+   * Toggle user dropdown menu visibility
+   */
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  /**
+   * Handle user logout process
+   * Calls logout API and redirects to login page
+   */
   const handleLogout = async () => {
     try {
       await api.post('/auth/logout');
@@ -103,6 +129,10 @@ const ProjectsDash = () => {
     }
   };
 
+  /**
+   * Handle navigation back to projects list
+   * Clears project-specific state and navigates to projects overview
+   */
   const handleProjectsNavigation = () => {
     setProject(null);
     setProjectTitle('');
@@ -123,6 +153,7 @@ const ProjectsDash = () => {
         <div className="box-titles">
           <div className="titles">
               <Link to={'./'} onClick={handleProjectsNavigation}>Projects</Link>
+              {/* Project Information tab only shows when a project is selected */}
               {project && (
                 <Link to={'./project-info'}>Project Information</Link>
               )}

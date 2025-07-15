@@ -3,6 +3,15 @@ import './ActionsDash.css'
 import api from '../api/axios';
 import { useParams } from 'react-router-dom';
 
+/**
+ * Renders the ActionsDash component, which provides a form for authenticated users to submit new change requests
+ * (such as new features, bug fixes, or updates) for a specific project. The component fetches the current user
+ * and project information, manages form state, handles form validation, and submits the request to the backend API.
+ *
+ * @component
+ *
+ * @returns The rendered ActionsDash form UI.
+ */
 const ActionsDash = () => {
   interface User {
     id: string;
@@ -23,6 +32,7 @@ const ActionsDash = () => {
 
   const { id: projectId } = useParams();
 
+  // Fetching user information on mount or change i projectId
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,6 +54,7 @@ const ActionsDash = () => {
     fetchData();
   }, [projectId]);
   
+  // Handle change request submission
   const handleRequest = async (e) => {
     e.preventDefault();
 
@@ -75,6 +86,7 @@ const ActionsDash = () => {
     setError(null);
 
     try {
+      // Request body
       const payload = {
         description: description,
         user: userId,

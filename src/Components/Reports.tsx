@@ -30,6 +30,21 @@ interface ChangeRequest {
   reason?: string;
 }
 
+/**
+ * Reports component displays a list of change requests for all users, 
+ * providing filtering, sorting, and summary statistics.
+ * 
+ * - Fetches current user and all change requests on mount.
+ * - Allows filtering by status (all, pending, approved, deployed, rolled back).
+ * - Allows sorting by newest, oldest, project, or status.
+ * - Displays summary statistics for total, pending, approved, and deployed requests.
+ * - Handles loading and error states.
+ * - Provides a dropdown for user logout.
+ * 
+ * @component
+ * @returns The rendered Reports component.
+ *
+ */
 const Reports: React.FC = () => {
   const [changeRequests, setChangeRequests] = useState<ChangeRequest[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -44,16 +59,19 @@ const Reports: React.FC = () => {
       try {
         setError(null);
 
+        // Get current user info for display in header
         const userInfo = await api.get('/auth/me');
         const userData: User = userInfo.data.user;
         setCurrentUser(userData);
 
+        // Fetch all change requests from all users
         const response = await api.get('/change-request/all-users');
         
         console.log('API Response:', response.data);
         
         let requests: ChangeRequest[] = [];
         
+        // Handle different API response formats
         if (Array.isArray(response.data)) {
           requests = response.data as ChangeRequest[];
         } else if (response.data && typeof response.data === 'object') {
@@ -67,7 +85,7 @@ const Reports: React.FC = () => {
         console.log('Processed requests:', requests);
         setChangeRequests(requests);
 
-      } catch (error: any) {
+      } catch (error) {
         const errorMessage = error?.response?.data?.message || error?.message || "Failed to fetch change requests";
         setError(errorMessage);
         console.error("Error fetching reports data:", error);
@@ -79,13 +97,16 @@ const Reports: React.FC = () => {
     fetchData();
   }, []);
 
+  // Apply filtering and sorting to change requests based on user selections
   const getFilteredAndSortedRequests = (): ChangeRequest[] => {
     let filtered = changeRequests;
 
+    // Apply status filter if not showing all
     if (filterStatus !== 'all') {
       filtered = filtered.filter(request => request.status === filterStatus);
     }
 
+    // Apply sorting based on selected criteria
     const sorted = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case 'newest':
@@ -112,6 +133,7 @@ const Reports: React.FC = () => {
     return sorted;
   };
 
+  // Format date strings for display with error handling
   const formatDate = (dateString?: string): string => {
     if (!dateString) return 'Unknown date';
     
@@ -129,6 +151,7 @@ const Reports: React.FC = () => {
     }
   };
 
+  // Return appropriate color for different change requests statuses
   const getStatusColor = (status?: string): string => {
     switch (status?.toLowerCase()) {
       case 'pending': return '#FFC107';
@@ -203,6 +226,7 @@ const Reports: React.FC = () => {
           <hr />
         </div>
 
+        {/* Summary statistics showing counts for different change requests statuses */}
         <div className="reports-controls">
           <div className="reports-stats">
             <div className="stat-item">
@@ -229,6 +253,7 @@ const Reports: React.FC = () => {
             </div>
           </div>
 
+          {/* Filter and sort controls */}
           <div className="filter-controls">
             <select 
               value={filterStatus} 
@@ -265,6 +290,7 @@ const Reports: React.FC = () => {
                   <div className="req-name">
                     {request.project?.title || 'Unknown Project'}: {request.description || 'No description'}
                   </div>
+                  {/* Status badge with dynamic color based on change request status */}
                   <div className="status-badge" style={{backgroundColor: getStatusColor(request.status)}}>
                     {request.status?.toUpperCase() || 'UNKNOWN'}
                   </div>
@@ -280,6 +306,7 @@ const Reports: React.FC = () => {
                   
                   <div className="request-meta">
                     <div className="change-type">{request.request_type || 'Unknown'}</div>
+                    {/* Only show updated date if it differs from created date */}
                     {request.updated_at && request.updated_at !== request.created_at && (
                       <div className="last-updated">
                         Updated: {formatDate(request.updated_at)}
@@ -288,6 +315,7 @@ const Reports: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Optional fields - only show if present */}
                 {request.reason && (
                   <div className="request-reason">
                     <strong>Reason:</strong> {request.reason}

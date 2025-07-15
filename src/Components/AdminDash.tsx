@@ -3,6 +3,31 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import './AdminDash.css'
 import api from '../api/axios'
 
+/**
+ * AdminDash component for the admin dashboard.
+ *
+ * This component handles:
+ * - Fetching and displaying the current authenticated user's information.
+ * - Fetching and displaying selected user details based on the URL query parameter 'id'.
+ * - Providing navigation links for user management and project assignment.
+ * - Handling user logout functionality.
+ * - Displaying a dropdown for logout actions.
+ *
+ * State:
+ * - 'users': The selected user's basic information (id, username) or null.
+ * - 'user': The current authenticated user's full information or null.
+ * - 'loading': Indicates if user data is being loaded.
+ * - 'error': Stores error messages for failed fetches.
+ * - 'isDropdownOpen': Controls the visibility of the logout dropdown.
+ *
+ * Side Effects:
+ * - Fetches current user info on mount.
+ * - Fetches selected user info when the URL query parameter `id` changes.
+ *
+ * @component
+ * @returns The rendered AdminDash form component.
+ */
+
 const AdminDash = () => {
   interface Users {
     id: string;

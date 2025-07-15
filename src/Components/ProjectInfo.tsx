@@ -5,6 +5,18 @@ import './ProjectInfo.css'
 import { useParams } from 'react-router-dom'
 import api from '../api/axios'
 
+/**
+ * Displays detailed information about a specific project, including its change requests.
+ *
+ * - Fetches and lists all change requests associated with the project.
+ * - Shows the last updated date and the total number of requests.
+ * - Formats dates and relative times for display.
+ * - Handles loading and error states.
+ *
+ * @component
+ * @returns The rendered ProjectInfo component.
+ *
+ */
 const ProjectInfo = () => {
   interface User {
     id: string;
@@ -47,6 +59,7 @@ const ProjectInfo = () => {
       return;
     }
 
+    // Fetch change requests for the specified project on component mount
     const fetchProject = async () => {
       try {
         const response = await api.get(`/change-request/query?projectId=${id}`);
@@ -64,6 +77,7 @@ const ProjectInfo = () => {
     fetchProject();
   }, [id]);
 
+  // Calculate most recent change request date
   const latestDate = changeRequests.length > 0
     ? new Date(Math.max(...changeRequests.map(cr => new Date(cr.created_at).getTime())))
     : null;

@@ -4,6 +4,19 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './AddProject.css'
 
+/**
+ * AddProject component provides a form for creating a new project.
+ *
+ * @component
+ * @returns The rendered AddProject form component.
+ *
+ * @description
+ * - Allows users to input a project title and description.
+ * - Handles form submission with validation and loading state.
+ * - Displays error messages for invalid input or failed API requests.
+ * - On successful creation, resets the form and navigates back to the previous page.
+ *
+ */
 const AddProject = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -11,14 +24,15 @@ const AddProject = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    React.useEffect(() => {
-        console.log("AddProject component mounted!");
-        console.log("Current URL:", window.location.href);
-    }, []);
-
+    /**
+     * Handles form submission for creating a new project
+     * Validates input fields and makes API call to create project
+     * @param e - Form submission event
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         
+        // Client-side validation to ensure required fields are filled
         if (!title.trim() || !description.trim()) {
             setError('Please fill in all fields');
             return;
@@ -30,6 +44,7 @@ const AddProject = () => {
         try {
             console.log("Creating project with:", { title, description });
             
+            // Create new project
             const response = await api.post('/project/create', {
                 title: title.trim(),
                 description: description.trim()
@@ -37,6 +52,7 @@ const AddProject = () => {
 
             console.log('Project created successfully:', response.data);
             
+            // Clear fields
             setTitle('');
             setDescription('');
             
@@ -46,6 +62,7 @@ const AddProject = () => {
         } catch (error) {
             console.error("Failed to create project:", error);
             
+             // Handle different error scenarios
             if (error.response?.data?.message) {
                 setError(error.response.data.message);
             } else {

@@ -5,6 +5,17 @@ import './Users.css'
 import { useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 
+/**
+ * Users component displays a list of users fetched from the backend API.
+ * 
+ * - Fetches users on mount and displays them with their username and user type.
+ * - Allows navigation to user details and to the add user page.
+ * - Supports removing a user from the list.
+ * 
+ * @component
+ * @returns The rendered Users component.
+ *
+ */
 const Users = () => {
     interface User {
         id: string;
@@ -19,6 +30,7 @@ const Users = () => {
     const[loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
+    // Fetch users
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -27,7 +39,6 @@ const Users = () => {
 
             } catch (error) {
                 console.error("Failed to fetch users", error);
-                
             } finally {
                 setLoading(false);
             }
@@ -37,25 +48,28 @@ const Users = () => {
 
     if (loading) return <div>Loading...</div>
 
+    // Navigate to individual user details page
     const handleUsername: HandleUsername = (id) => {
         navigate(`./user-info/?id=${id}`)
     }
+
+    // Remove user from system and update local state
     const handleRemove = async (id: string) => {
         try {
             await api.delete(`/users/${id}`);
+            // Update local state to remove deleted user without refetching
             setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
             
         } catch (error) {
             console.error("Failed to delete user", error);   
         }
     }
+
+    // Navigate to add user page
     const handleAddUser = async () => {
-        try {
-            navigate('add-user');
-        } catch (error) {
-            console.error("Unable to navigate user", error);
-        }
+        navigate('add-user');
     }
+
   return (
     <div className="box-body">
         <div className="add-user">
@@ -80,7 +94,6 @@ const Users = () => {
                     </div>
                 </div>
             ))}
-            
         </div>
         
     </div>
